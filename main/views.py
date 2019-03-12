@@ -2,6 +2,6 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(request):
-  data = "Hello World."
+  data = "Main View"
 
-  return render(request, "list/index.html", {"data": data})
+  return render(request, "main/index.html", {"data": data})
