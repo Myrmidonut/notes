@@ -4,6 +4,36 @@
 
   <h1>{{ data }}</h1>
 
-  <p>This is the main view.</p>
+  {% for list in lists %}
+    {{ list.title }}
+    <p>archived: {{ list.archived }}</p>
+    <p>collapsed: {{ list.collapsed }}</p>
+    <form action="" method="post">
+      {% csrf_token %}
+      <button>Archive</button>
+      <button>Collapse</button>
+    </form>
+
+    <form action="" metod="post">
+        {% csrf_token %}
+      <ul>
+        {% for entry in entries %}
+          {% if entry.header.title == list.title %}
+            <li>{{ entry.text }} - {{ entry.amount }} - Checked: {{ entry.done }}</li>
+            <button>Delete</button>
+            <button>Check</button>
+          {% endif %}
+        {% endfor %}
+
+        <p>
+          <input type="text" name="entry" placeholder="New item">
+          <input type="submit" value="Add">
+        </p>
+      </ul>
+    </form>
+
+    <hr>
+
+  {% endfor %}
 
 {% endblock %}
