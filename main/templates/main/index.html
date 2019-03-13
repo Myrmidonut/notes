@@ -2,7 +2,7 @@
 
 {% block content %}
 
-  <h1>{{ data }}</h1>
+  <h1>Main View</h1>
 
   {% for list in lists %}
     {{ list.title }}
@@ -10,12 +10,14 @@
     <p>collapsed: {{ list.collapsed }}</p>
     <form action="" method="post">
       {% csrf_token %}
+
       <button>Archive</button>
       <button>Collapse</button>
     </form>
 
-    <form action="" metod="post">
-        {% csrf_token %}
+    <form action="" method="post">
+      {% csrf_token %}
+
       <ul>
         {% for entry in entries %}
           {% if entry.header.title == list.title %}
