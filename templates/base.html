@@ -23,15 +23,20 @@
     <h1>[[ message ]]</h1>
 
     <form action="" method="post">
+      {% csrf_token %}
+
       <input type="text" name="entry" placeholder="New list">
       <input type="submit" value="Add">
     </form>
 
-    <template v-if="json !== undefined">
-      <div v-for="list in json.lists">
+    <p>[[ lists ]]</p>
+
+    <template v-if="lists !== undefined">
+      <div v-for="list in lists">
         <hr>
 
         <p>[[ list.title ]]</p>
+        <p>id: [[ list.id ]]</p>
         <p>Archived: [[ list.archived ]]</p>
         <p>Collapsed: [[ list.collapsed ]]</p>
 
@@ -47,12 +52,15 @@
           {% csrf_token %}
 
           <ul>
-            <template v-for="entry in json.entries">
+            <template v-for="entry in list.entries">
               <template v-if="entry.header_id === list.id">
-                <li>[[ entry.text ]] - [[ entry.amount ]] - Checked: [[ entry.done ]]</li>
-                <button>Edit</button>
-                <button>Delete</button>
-                <button>Check</button>
+                <li>
+                  <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                  <p>id: [[ entry.id ]]</p>
+                  <button>Edit</button>
+                  <button>Delete</button>
+                  <button>Check</button>
+                </li>
               </template>
             </template>
 
