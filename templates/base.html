@@ -21,13 +21,62 @@
 
   <div id="app">
     <h1>[[ message ]]</h1>
-    <p>[[ json ]]</p>
+
+    <form action="" method="post">
+      <input type="text" name="entry" placeholder="New list">
+      <input type="submit" value="Add">
+    </form>
+
+    <template v-if="json !== undefined">
+      <div v-for="list in json.lists">
+        <hr>
+
+        <p>[[ list.title ]]</p>
+        <p>Archived: [[ list.archived ]]</p>
+        <p>Collapsed: [[ list.collapsed ]]</p>
+
+        <form action="" method="post">
+          {% csrf_token %}
+    
+          <button>Edit</button>
+          <button>Archive</button>
+          <button>Collapse</button>
+        </form>
+
+        <form action="" method="post">
+          {% csrf_token %}
+
+          <ul>
+            <template v-for="entry in json.entries">
+              <template v-if="entry.header_id === list.id">
+                <li>[[ entry.text ]] - [[ entry.amount ]] - Checked: [[ entry.done ]]</li>
+                <button>Edit</button>
+                <button>Delete</button>
+                <button>Check</button>
+              </template>
+            </template>
+
+            <p>
+              <input type="text" name="entry" placeholder="New item">
+              <input type="submit" value="Add">
+            </p>
+          </ul>
+
+        </form>
+        
+      </div>
+
+    </template>
+    
   </div>
+
+  <!--
     
   <hr>
 
   {% block content %}
   {% endblock %}
+  -->
 
   <footer>
     <hr>
