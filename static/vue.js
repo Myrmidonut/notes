@@ -8,7 +8,7 @@ const app = new Vue({
   },
   methods: {
     getData: function() {
-      fetch("/json")
+      fetch("/get_all")
       .then(res => res.json())
       .then(data => {
         this.lists = data
