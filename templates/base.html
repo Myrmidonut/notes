@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-  <title>Document</title>
+  <title>Shopping List</title>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 <body>
 
@@ -13,8 +15,16 @@
     This is my navbar.
     <a href="/list">List</a>
     <a href="/account">Account</a>
+    <a href="/json">JSON</a>
     <hr>
   </nav>
+
+  <div id="app">
+    <h1>[[ message ]]</h1>
+    <p>[[ json ]]</p>
+  </div>
+    
+  <hr>
 
   {% block content %}
   {% endblock %}
@@ -23,6 +33,9 @@
     <hr>
     This is my footer.
   </footer>
+
+  {% load static %}
+  <script src="{% static 'vue.js' %}"></script>
   
 </body>
 </html>
