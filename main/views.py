@@ -111,15 +111,17 @@ def update_list(request):
 def new_entry(request):
   if request.method == "POST":
     text = request.POST.get("text")
-    header_id = request.POST.get("header_id")
     amount = request.POST.get("amount")
+    header_id = request.POST.get("id")
     
     newEntry = Entry(header_id=header_id, text=text, amount=amount)
     newEntry.save()
 
-    return HttpResponse("entry saved")
+    allData = combineAll()
+
+    return JsonResponse(allData, safe=False)
   else:
-    return HttpResponse("no post")
+    return HttpResponse("no entry")
 
 def get_all(request):
   lists = list(List.objects.values())

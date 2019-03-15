@@ -13,6 +13,9 @@ const app = new Vue({
         this.lists = data
       })
     },
+
+    // LISTS:
+    
     newList: function(e) {
       let headers = new Headers()
       headers.append("X-CSRFToken", e.target[0].value)
@@ -87,6 +90,30 @@ const app = new Vue({
       body.append("collapsed", collapsed)
 
       fetch("/collapse_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.lists = data
+      })
+    },
+
+    // ENTRIES:
+
+    newEntry: function(e) {
+      const id = e.target.parentElement.id
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", e.target[0].value)
+
+      let body = new FormData()
+      body.append("text", e.target[1].value)
+      body.append("amount", e.target[2].value)
+      body.append("id", id)
+
+      fetch("/new_entry/", {
         method: "post",
         headers: headers,
         body: body

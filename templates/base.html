@@ -57,30 +57,27 @@
         <button v-on:click="archiveList($event)">Archive</button>
         <button v-on:click="collapseList($event)">Collapse</button>
 
-        <form action="" method="post">
-          {% csrf_token %}
-
-          <ul>
-            <template v-for="entry in list.entries">
-              <template v-if="entry.header_id === list.id">
-                <li>
-                  <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                  <p>id: [[ entry.id ]]</p>
-                  <button>Edit</button>
-                  <button>Delete</button>
-                  <button>Check</button>
-                </li>
-              </template>
+        <ul>
+          <template v-for="entry in list.entries">
+            <template v-if="entry.header_id === list.id">
+              <li>
+                <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                <p>id: [[ entry.id ]]</p>
+                <button v-on:click="updateEntry($event)">Edit</button>
+                <button v-on:click="deleteEntry($event)">Delete</button>
+                <button v-on:click="checkEntry($event)">Check</button>
+              </li>
             </template>
+          </template>
+        </ul>
 
-            <p>
-              <input type="text" name="entry" placeholder="New item">
-              <input type="submit" value="Add">
-            </p>
-          </ul>
-
+        <form action="" method="post" v-on:submit.prevent="newEntry($event)">
+          {% csrf_token %}
+          <input type="text" name="text" placeholder="New item">
+          <input type="number" name="amount" placeholder="Amount">
+          <input type="submit" value="Add">
         </form>
-        
+
       </div>
 
     </template>
