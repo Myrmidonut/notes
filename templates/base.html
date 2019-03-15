@@ -22,17 +22,21 @@
   <div id="app">
     <h1>[[ message ]]</h1>
 
-    <form action="new_list/" method="post">
+    <p>[[ lists ]]</p>
+
+    <hr>
+
+    <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
       {% csrf_token %}
 
       <input type="text" name="title" placeholder="New list">
       <input type="submit" value="Add">
     </form>
 
-    <p>[[ lists ]]</p>
-
     <template v-if="lists !== undefined">
-      <div v-for="list in lists">
+      <div v-for="list in lists" :id="list.id">
+        {% csrf_token %}
+
         <hr>
 
         <p>[[ list.title ]]</p>
@@ -40,12 +44,14 @@
         <p>Archived: [[ list.archived ]]</p>
         <p>Collapsed: [[ list.collapsed ]]</p>
 
-        <form action="" method="post">
+        <button v-on:click="archiveList($event)">Archive</button>
+        <button v-on:click="collapseList($event)">Collapse</button>
+
+        <form action="" method="post" v-on:submit.prevent="updateList($event)">
           {% csrf_token %}
     
-          <button>Edit</button>
-          <button>Archive</button>
-          <button>Collapse</button>
+          <input type="text" name="title" value="Edit Title">
+          <input type="submit" value="Edit">
         </form>
 
         <form action="" method="post">
