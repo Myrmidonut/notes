@@ -96,11 +96,9 @@ def update_list(request):
   if request.method == "POST":
     list_id = request.POST.get("id")
     title = request.POST.get("title")
-    archived = request.POST.get("archived")
-    collapsed = request.POST.get("collapsed")
 
-    updatedList = List(id=list_id, title=title, archived=archived, collapsed=collapsed)
-    updatedList.save()
+    updatedList = List(id=list_id, title=title)
+    updatedList.save(update_fields=["title"])
 
     allData = combineAll()
 

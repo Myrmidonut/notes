@@ -13,19 +13,21 @@
 
   <nav>
     This is my navbar.
-    <a href="/list">List</a>
+    <!--<a href="/list">List</a>-->
     <a href="/account">Account</a>
-    <a href="/json">JSON</a>
+    <a href="/archive">Archive</a>
+    <!--<a href="/json">JSON</a>-->
     <hr>
   </nav>
 
   <div id="app">
+    <!--
     <h1>[[ message ]]</h1>
 
     <p>[[ lists ]]</p>
 
     <hr>
-
+    -->
     <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
       {% csrf_token %}
 
@@ -40,19 +42,20 @@
         <hr>
 
         <p>[[ list.title ]]</p>
+
+        <form action="" method="post" v-on:submit.prevent="updateList($event)">
+          {% csrf_token %}
+    
+          <input type="text" name="title" :placeholder="[[ list.title ]]">
+          <input type="submit" value="Save">
+        </form>
+
         <p>id: [[ list.id ]]</p>
         <p>Archived: [[ list.archived ]]</p>
         <p>Collapsed: [[ list.collapsed ]]</p>
 
         <button v-on:click="archiveList($event)">Archive</button>
         <button v-on:click="collapseList($event)">Collapse</button>
-
-        <form action="" method="post" v-on:submit.prevent="updateList($event)">
-          {% csrf_token %}
-    
-          <input type="text" name="title" value="Edit Title">
-          <input type="submit" value="Edit">
-        </form>
 
         <form action="" method="post">
           {% csrf_token %}

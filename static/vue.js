@@ -31,13 +31,16 @@ const app = new Vue({
       })
     },
     updateList: function(e) {
+      const id = e.target.parentElement.id
+
       let headers = new Headers()
       headers.append("X-CSRFToken", e.target[0].value)
 
       let body = new FormData()
+      body.append("id", id)
       body.append("title", e.target[1].value)
 
-      fetch("/new_list/", {
+      fetch("/update_list/", {
         method: "post",
         headers: headers,
         body: body
