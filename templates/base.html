@@ -19,9 +19,7 @@
   </nav>
 
   <div id="app">
-    <list>
-      {% csrf_token %}
-    </list>
+    <list :lists="lists" :token="token"></list>
   </div>
 
   <footer>

@@ -11,51 +11,14 @@ Vue.component("archive", {
   },
 
   methods: {
-    
+
   }
 })
 
 Vue.component("list", {
-  data: function() {
-    return {
-      "token": undefined,
-      "lists": undefined
-    }
-  },
-
-  mounted: function() {
-    this.getCookie('csrftoken')
-    this.getData()
-  },
+  props: ["lists", "token"],
 
   methods: {
-    getCookie: function(name) {
-      let cookieValue = null;
-
-      if (document.cookie && document.cookie != '') {
-        let cookies = document.cookie.split(';');
-
-        for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
-
-          if (cookie.substring(0, name.length + 1) == (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-            break;
-          }
-        }
-      }
-
-      this.token = cookieValue;
-    },
-
-    getData: function() {
-      fetch("/get_all")
-      .then(res => res.json())
-      .then(data => {
-        this.lists = data
-      })
-    },
-
     // LISTS:
 
     newList: function(e) {
@@ -303,7 +266,49 @@ Vue.component("list", {
 
 new Vue({
   delimiters: ["[[", "]]"],
-  el: "#app"
+
+  el: "#app",
+
+  data: function() {
+    return {
+      "token": undefined,
+      "lists": undefined
+    }
+  },
+
+  mounted: function() {
+    this.getCookie('csrftoken')
+    this.getData()
+  },
+
+  methods: {
+    getCookie: function(name) {
+      let cookieValue = null;
+
+      if (document.cookie && document.cookie != '') {
+        let cookies = document.cookie.split(';');
+
+        for (let i = 0; i < cookies.length; i++) {
+          let cookie = cookies[i].trim();
+
+          if (cookie.substring(0, name.length + 1) == (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+
+      this.token = cookieValue;
+    },
+
+    getData: function() {
+      fetch("/get_all")
+      .then(res => res.json())
+      .then(data => {
+        this.lists = data
+      })
+    }
+  }
 })
 
 /*
