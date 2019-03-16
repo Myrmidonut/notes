@@ -1,3 +1,23 @@
+Vue.component("navbar", {
+  template: `
+    <nav>
+      This is my navbar.
+      <a href="/account">Account</a>
+      <a href="/archive">Archive</a>
+      <hr>
+    </nav>
+  `
+})
+
+Vue.component("my-footer", {
+  template: `
+    <footer>
+      <hr>
+      This is my footer.
+    </footer>
+  `
+})
+
 Vue.component("archive", {
   data: function() {
     return {
@@ -272,7 +292,8 @@ new Vue({
   data: function() {
     return {
       "token": undefined,
-      "lists": undefined
+      "lists": undefined,
+      "archive": false
     }
   },
 

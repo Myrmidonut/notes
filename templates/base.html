@@ -11,27 +11,16 @@
 </head>
 <body>
 
-  <nav>
-    This is my navbar.
-    <a href="/account">Account</a>
-    <a href="/archive">Archive</a>
-    <hr>
-  </nav>
-
   <div id="app">
+    <navbar></navbar>
+
     <list :lists="lists" :token="token"></list>
+
+    <my-footer></my-footer>
   </div>
 
-  <footer>
-    <hr>
-    This is my footer.
-  </footer>
-
   {% load static %}
-  <script src="{% static 'vue.js' %}">
-    var CSRF_TOKEN = '{{ csrf_token }}';
-    var test = "test"
-  </script>
+  <script src="{% static 'vue.js' %}"></script>
   
 </body>
 </html>
