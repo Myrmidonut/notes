@@ -15,7 +15,7 @@ const app = new Vue({
     },
 
     // LISTS:
-    
+
     newList: function(e) {
       let headers = new Headers()
       headers.append("X-CSRFToken", e.target[0].value)
@@ -33,6 +33,7 @@ const app = new Vue({
         this.lists = data
       })
     },
+
     updateList: function(e) {
       const id = e.target.parentElement.id
 
@@ -53,6 +54,7 @@ const app = new Vue({
         this.lists = data
       })
     },
+
     archiveList: function(e) {
       const id = e.target.parentElement.id
       let archived
@@ -76,6 +78,7 @@ const app = new Vue({
         this.lists = data
       })
     },
+
     collapseList: function(e) {
       const id = e.target.parentElement.id
       let collapsed
@@ -122,7 +125,28 @@ const app = new Vue({
       .then(data => {
         this.lists = data
       })
+    },
+
+    deleteEntry: function(e) {
+      const id = e.target.parentElement.id
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", e.target.parentElement.childNodes[0].value)
+
+      let body = new FormData()
+      body.append("id", id)
+
+      fetch("/delete_entry/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.lists = data
+      })
     }
+
   }
 })
 

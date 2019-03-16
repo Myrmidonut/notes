@@ -123,6 +123,25 @@ def new_entry(request):
   else:
     return HttpResponse("no entry")
 
+def delete_entry(request):
+  if request.method == "POST":
+    entry_id = request.POST.get("id")
+    
+    entry = Entry(id=entry_id)
+    entry.delete()
+
+    allData = combineAll()
+
+    return JsonResponse(allData, safe=False)
+  else:
+    return HttpResponse("no entry")
+
+#def check_entry(request):
+
+#def edit_entry(request):
+
+# ALL:
+
 def get_all(request):
   lists = list(List.objects.values())
   entries = list(Entry.objects.values())

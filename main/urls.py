@@ -8,5 +8,6 @@ urlpatterns = [
   path("update_list/", views.update_list, name="update_list"),
   path("archive_list/", views.archive_list, name="archive_list"),
   path("collapse_list/", views.collapse_list, name="collapse_list"),
-  path("new_entry/", views.new_entry, name="new_entry")
+  path("new_entry/", views.new_entry, name="new_entry"),
+  path("delete_entry/", views.delete_entry, name="delete_entry")
 ]
