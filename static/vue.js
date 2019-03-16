@@ -1,13 +1,15 @@
 Vue.component("navbar", {
-  props: ["archive"],
+  delimiters: ["[[", "]]"],
+
+  props: ["page"],
 
   methods: {
 
     toggleArchive: function() {
-      if (this.archive) {
-        this.$emit("update:archive", false)
+      if (this.page === "list") {
+        this.$emit("update:page", "archive")
       } else {
-        this.$emit("update:archive", true)
+        this.$emit("update:page", "list")
       }
     }
   },
@@ -15,8 +17,10 @@ Vue.component("navbar", {
   template: `
     <nav>
       <a href="">Account</a>
-      <a href="/archive" v-on:click.prevent="toggleArchive">Archive</a>
-      <hr>
+      <a href="/archive" v-on:click.prevent="toggleArchive">
+        <span v-if="page === 'list'">Archive</span>
+        <span v-if="page === 'archive'">List</span>
+      </a>
     </nav>
   `
 })
@@ -24,7 +28,6 @@ Vue.component("navbar", {
 Vue.component("my-footer", {
   template: `
     <footer>
-      <hr>
       This is my footer.
     </footer>
   `
@@ -33,7 +36,7 @@ Vue.component("my-footer", {
 Vue.component("archive", {
   delimiters: ["[[", "]]"],
 
-  props: ["lists", "token", "archive"],
+  props: ["lists", "token", "page"],
 
   methods: {
 
@@ -87,7 +90,7 @@ Vue.component("archive", {
   },
 
   template: `
-    <div v-if="archive">
+    <div v-if="page === 'archive'">
       <template v-if="lists !== undefined">
         <div v-for="list in lists" :id="list.id">
           <template v-if="list.archived">
@@ -115,7 +118,7 @@ Vue.component("archive", {
 })
 
 Vue.component("list", {
-  props: ["lists", "token", "archive"],
+  props: ["lists", "token", "page"],
 
   methods: {
     // LISTS:
@@ -301,7 +304,7 @@ Vue.component("list", {
   },
 
   template: `
-    <div v-if="!archive">
+    <div v-if="page === 'list'">
       <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
         <input type="text" name="title" placeholder="New list">
         <input type="submit" value="Add">
@@ -373,7 +376,7 @@ new Vue({
     return {
       "token": undefined,
       "lists": undefined,
-      "archive": false
+      "page": "list"
     }
   },
 

@@ -15,10 +15,10 @@
 <body>
 
   <div id="app">
-    <navbar :archive.sync="archive"></navbar>
+    <navbar :page.sync="page"></navbar>
 
-    <list :lists.sync="lists" :token="token" :archive="archive"></list>
-    <archive :lists.sync="lists" :token="token" :archive="archive"></archive>
+    <list :lists.sync="lists" :token="token" :page="page"></list>
+    <archive :lists.sync="lists" :token="token" :page="page"></archive>
 
     <my-footer></my-footer>
   </div>
