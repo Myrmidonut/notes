@@ -330,10 +330,10 @@ Vue.component("list", {
 
                 <div class="list-header">
                   <span>[[ list.title ]]</span>
-                  
+
                   <div class="list-header-buttons">
-                    <button v-on:click="archiveList($event)"><i class="fas fa-trash-alt"></i></button>
-                    <button v-on:click="collapseList($event)"><i class="fas fa-minus"></i></button>
+                    <button title="Collapse" v-on:click="collapseList($event)"><i class="fas fa-minus"></i></button>
+                    <button title="Archive" v-on:click="archiveList($event)"><i class="fas fa-trash-alt"></i></button>
                   </div>
                 </div>
 

@@ -49,6 +49,10 @@ footer {
         background: white;
         border: 1px solid black;
 
+        &:first-of-type {
+          margin-right: 5px;
+        }
+
         &:hover {
           background: gray;
         }

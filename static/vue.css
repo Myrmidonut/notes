@@ -49,6 +49,9 @@ footer {
   background: white;
   border: 1px solid black;
 }
+.card-container .card .list-header button:first-of-type {
+  margin-right: 5px;
+}
 .card-container .card .list-header button:hover {
   background: gray;
 }
