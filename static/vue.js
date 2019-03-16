@@ -145,6 +145,55 @@ const app = new Vue({
       .then(data => {
         this.lists = data
       })
+    },
+
+    checkEntry: function(e) {
+      const id = e.target.parentElement.id
+      const listId = e.target.parentElement.parentElement.parentElement.id
+
+      let checked
+
+      this.lists[listId].entries[id].done ? checked = false : checked = true
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", e.target.parentElement.childNodes[0].value)
+
+      let body = new FormData()
+      body.append("id", id)
+      body.append("checked", checked)
+
+      fetch("/check_entry/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.lists = data
+      })
+    },
+
+    updateEntry: function(e) {
+      const id = e.target.parentElement.id
+      const amount = e.target[2].value ? e.target[2].value : 1
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", e.target[0].value)
+
+      let body = new FormData()
+      body.append("text", e.target[1].value)
+      body.append("amount", amount)
+      body.append("id", id)
+
+      fetch("/update_entry/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.lists = data
+      })
     }
 
   }

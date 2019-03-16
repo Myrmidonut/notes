@@ -136,9 +136,42 @@ def delete_entry(request):
   else:
     return HttpResponse("no entry")
 
-#def check_entry(request):
+def check_entry(request):
+  print(request.POST.get("id"))
+  print(request.POST.get("checked"))
 
-#def edit_entry(request):
+  if request.method == "POST":
+    entry_id = request.POST.get("id")
+    done = False
+    
+    if request.POST.get("checked") == "true":
+      done = True
+    else:
+      done = False
+
+    updatedEntry = Entry(id=entry_id, done=done)
+    updatedEntry.save(update_fields=["done"])
+
+    allData = combineAll()
+
+    return JsonResponse(allData, safe=False)
+  else:
+    return HttpResponse("no entry")
+
+def update_entry(request):
+  if request.method == "POST":
+    entry_id = request.POST.get("id")
+    text = request.POST.get("text")
+    amount = request.POST.get("amount")
+
+    updatedEntry = Entry(id=entry_id, text=text, amount=amount)
+    updatedEntry.save(update_fields=["text", "amount"])
+
+    allData = combineAll()
+
+    return JsonResponse(allData, safe=False)
+  else:
+    return HttpResponse("no update")
 
 # ALL:
 

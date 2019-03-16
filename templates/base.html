@@ -65,8 +65,15 @@
 
                 <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
                 <p>id: [[ entry.id ]]</p>
-                
-                <button v-on:click="updateEntry($event)">Edit</button>
+
+                <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
+                  {% csrf_token %}
+            
+                  <input type="text" name="text" :value="[[ entry.text ]]">
+                  <input type="number" name="amount" :value="[[ entry.amount ]]">
+                  <input type="submit" value="Save">
+                </form>
+
                 <button v-on:click="deleteEntry($event)">Delete</button>
                 <button v-on:click="checkEntry($event)">Check</button>
               </li>
