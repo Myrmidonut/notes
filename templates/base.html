@@ -12,9 +12,10 @@
 <body>
 
   <div id="app">
-    <navbar></navbar>
+    <navbar :archive.sync="archive"></navbar>
 
-    <list :lists="lists" :token="token"></list>
+    <list :lists.sync="lists" :token="token" :archive="archive"></list>
+    <archive :lists.sync="lists" :token="token" :archive="archive"></archive>
 
     <my-footer></my-footer>
   </div>

@@ -1,9 +1,22 @@
 Vue.component("navbar", {
+  props: ["archive"],
+
+  methods: {
+
+    toggleArchive: function() {
+      if (this.archive) {
+        this.$emit("update:archive", false)
+      } else {
+        this.$emit("update:archive", true)
+      }
+    }
+  },
+
   template: `
     <nav>
       This is my navbar.
       <a href="/account">Account</a>
-      <a href="/archive">Archive</a>
+      <a href="/archive" v-on:click.prevent="toggleArchive">Archive</a>
       <hr>
     </nav>
   `
@@ -19,66 +32,11 @@ Vue.component("my-footer", {
 })
 
 Vue.component("archive", {
-  data: function() {
-    return {
-      "test": undefined
-    }
-  },
+  delimiters: ["[[", "]]"],
 
-  mounted: function() {
-    this.getCookie('csrftoken')
-    this.getData()
-  },
+  props: ["lists", "token", "archive"],
 
   methods: {
-
-  }
-})
-
-Vue.component("list", {
-  props: ["lists", "token"],
-
-  methods: {
-    // LISTS:
-
-    newList: function(e) {
-      let headers = new Headers()
-      headers.append("X-CSRFToken", this.token)
-
-      let body = new FormData()
-      body.append("title", e.target[0].value)
-
-      fetch("/new_list/", {
-        method: "post",
-        headers: headers,
-        body: body
-      })
-      .then(res => res.json())
-      .then(data => {
-        this.lists = data
-      })
-    },
-
-    updateList: function(e) {
-      const id = e.target.parentElement.id
-
-      let headers = new Headers()
-      headers.append("X-CSRFToken", this.token)
-
-      let body = new FormData()
-      body.append("id", id)
-      body.append("title", e.target[0].value)
-
-      fetch("/update_list/", {
-        method: "post",
-        headers: headers,
-        body: body
-      })
-      .then(res => res.json())
-      .then(data => {
-        this.lists = data
-      })
-    },
 
     archiveList: function(e) {
       const id = e.target.parentElement.id
@@ -100,7 +58,7 @@ Vue.component("list", {
       })
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.$emit("update:lists", data)
       })
     },
 
@@ -124,7 +82,129 @@ Vue.component("list", {
       })
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.$emit("update:lists", data)
+      })
+    },
+  },
+
+  template: `
+    <div v-if="archive">
+      <template v-if="lists !== undefined">
+        <div v-for="list in lists" :id="list.id">
+          <template v-if="list.archived">
+
+            <p>[[ list.title ]]</p>
+
+            <button v-on:click="archiveList($event)">Restore</button>
+            <button v-on:click="collapseList($event)">Collapse</button>
+
+            <ul style="padding: 0">
+              <template v-for="entry in list.entries">
+                <template v-if="entry.header_id === list.id">
+                  <li :id="entry.id">
+                    <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                  </li>
+                </template>
+              </template>
+            </ul>
+
+          </template>
+        </div>
+      </template>
+    </div>
+  `
+})
+
+Vue.component("list", {
+  props: ["lists", "token", "archive"],
+
+  methods: {
+    // LISTS:
+
+    newList: function(e) {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("title", e.target[0].value)
+
+      fetch("/new_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
+
+    updateList: function(e) {
+      const id = e.target.parentElement.id
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+      body.append("title", e.target[0].value)
+
+      fetch("/update_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
+
+    archiveList: function(e) {
+      const id = e.target.parentElement.id
+      let archived
+
+      this.lists[id].archived ? archived = false : archived = true
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+      body.append("archived", archived)
+
+      fetch("/archive_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
+
+    collapseList: function(e) {
+      const id = e.target.parentElement.id
+      let collapsed
+
+      this.lists[id].collapsed ? collapsed = false : collapsed = true
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+      body.append("collapsed", collapsed)
+
+      fetch("/collapse_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
       })
     },
 
@@ -148,7 +228,7 @@ Vue.component("list", {
       })
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.$emit("update:lists", data)
       })
     },
 
@@ -168,7 +248,7 @@ Vue.component("list", {
       })
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.$emit("update:lists", data)
       })
     },
 
@@ -193,7 +273,7 @@ Vue.component("list", {
       })
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.$emit("update:lists", data)
       })
     },
 
@@ -216,13 +296,13 @@ Vue.component("list", {
       })
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.$emit("update:lists", data)
       })
     }
   },
 
   template: `
-    <div>
+    <div v-if="!archive">
       <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
         <input type="text" name="title" placeholder="New list">
         <input type="submit" value="Add">
@@ -230,55 +310,56 @@ Vue.component("list", {
 
       <template v-if="lists !== undefined">
         <div v-for="list in lists" :id="list.id">
+          <template v-if="!list.archived">
 
-          <hr>
+            <hr>
 
-          <!--
-          <p>[[ list.title ]]</p>
-          <p>id: [[ list.id ]]</p>
-          <p>Archived: [[ list.archived ]]</p>
-          <p>Collapsed: [[ list.collapsed ]]</p>
-          -->
+            <!--
+            <p>[[ list.title ]]</p>
+            <p>id: [[ list.id ]]</p>
+            <p>Archived: [[ list.archived ]]</p>
+            <p>Collapsed: [[ list.collapsed ]]</p>
+            -->
 
-          <form action="" method="post" v-on:submit.prevent="updateList($event)">
-            <input type="text" name="title" :value="[[ list.title ]]">
-            <input type="submit" value="Save">
-          </form>
+            <form action="" method="post" v-on:submit.prevent="updateList($event)">
+              <input type="text" name="title" :value="[[ list.title ]]">
+              <input type="submit" value="Save">
+            </form>
 
-          <button v-on:click="archiveList($event)">Archive</button>
-          <button v-on:click="collapseList($event)">Collapse</button>
+            <button v-on:click="archiveList($event)">Archive</button>
+            <button v-on:click="collapseList($event)">Collapse</button>
 
-          <ul style="padding: 0">
-            <template v-for="entry in list.entries">
-              <template v-if="entry.header_id === list.id">
-                <li :id="entry.id">
+            <ul style="padding: 0">
+              <template v-for="entry in list.entries">
+                <template v-if="entry.header_id === list.id">
+                  <li :id="entry.id">
 
-                  <!--
-                  <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                  <p>id: [[ entry.id ]]</p>
-                  -->
+                    <!--
+                    <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                    <p>id: [[ entry.id ]]</p>
+                    -->
 
-                  <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
-                    <input type="text" name="text" :value="[[ entry.text ]]">
-                    <input type="number" name="amount" :value="[[ entry.amount ]]">
-                    <input type="submit" value="Save">
-                  </form>
+                    <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
+                      <input type="text" name="text" :value="[[ entry.text ]]">
+                      <input type="number" name="amount" :value="[[ entry.amount ]]">
+                      <input type="submit" value="Save">
+                    </form>
 
-                  <button v-on:click="deleteEntry($event)">Delete</button>
-                  <button v-on:click="checkEntry($event)">Check</button>
-                </li>
+                    <button v-on:click="deleteEntry($event)">Delete</button>
+                    <button v-on:click="checkEntry($event)">Check</button>
+                  </li>
+                </template>
               </template>
-            </template>
-          </ul>
+            </ul>
 
-          <form action="" method="post" v-on:submit.prevent="newEntry($event)">
-            <input type="text" name="text" placeholder="New item">
-            <input type="number" name="amount" placeholder="Amount">
-            <input type="submit" value="Add">
-          </form>
+            <form action="" method="post" v-on:submit.prevent="newEntry($event)">
+              <input type="text" name="text" placeholder="New item">
+              <input type="number" name="amount" placeholder="Amount">
+              <input type="submit" value="Add">
+            </form>
 
+          </template>
         </div>
-
       </template>
     </div>
   `
@@ -331,31 +412,3 @@ new Vue({
     }
   }
 })
-
-/*
-"1": {
-  "id": 1,
-  "title": "food",
-  "collapsed": false,
-  "archived": false,
-  "entries": {
-    "1": {
-      "id": 1,
-      "header_id": 1,
-      "text": "apple",
-      "amount": 2,
-      "done": true
-    },
-    "2": {
-      "id": 2,
-      "header_id": 1,
-      "text": "banana",
-      "amount": 5,
-      "done": false
-    }
-  }
-},
-"2": {
-  ...
-}
-*/
