@@ -25,3 +25,25 @@ footer {
   background: lightgray;
   height: 30px;
 }
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+
+  .card {
+    width: 200px;
+    margin: 20px;
+    padding: 10px;
+    background: lightgray;
+
+    h4 {
+      margin-top: 0;
+      text-align: center;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+  }
+}

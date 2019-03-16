@@ -26,4 +26,23 @@ footer {
   height: 30px;
 }
 
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+}
+.card-container .card {
+  width: 200px;
+  margin: 20px;
+  padding: 10px;
+  background: lightgray;
+}
+.card-container .card h4 {
+  margin-top: 0;
+  text-align: center;
+}
+.card-container .card ul {
+  list-style-type: none;
+}
+
 /*# sourceMappingURL=vue.css.map */

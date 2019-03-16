@@ -16,7 +16,7 @@ Vue.component("navbar", {
 
   template: `
     <nav>
-      <a href="">Account</a>
+      <!--<a href="">Account</a>-->
       <a href="/archive" v-on:click.prevent="toggleArchive">
         <span v-if="page === 'list'">Archive</span>
         <span v-if="page === 'archive'">List</span>
@@ -90,28 +90,29 @@ Vue.component("archive", {
   },
 
   template: `
-    <div v-if="page === 'archive'">
+    <div class="card-container" v-if="page === 'archive'">
       <template v-if="lists !== undefined">
-        <div v-for="list in lists" :id="list.id">
+        <template v-for="list in lists">
           <template v-if="list.archived">
+            <div class="card" :id="list.id">
+              <h4>[[ list.title ]]</h4>
 
-            <p>[[ list.title ]]</p>
+              <button v-on:click="archiveList($event)">Restore</button>
+              <button v-on:click="collapseList($event)">Collapse</button>
 
-            <button v-on:click="archiveList($event)">Restore</button>
-            <button v-on:click="collapseList($event)">Collapse</button>
-
-            <ul style="padding: 0">
-              <template v-for="entry in list.entries">
-                <template v-if="entry.header_id === list.id">
-                  <li :id="entry.id">
-                    <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                  </li>
+              <ul style="padding: 0">
+                <template v-for="entry in list.entries">
+                  <template v-if="entry.header_id === list.id">
+                    <li :id="entry.id">
+                      <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                    </li>
+                  </template>
                 </template>
-              </template>
-            </ul>
+              </ul>
 
+            </div>
           </template>
-        </div>
+        </template>
       </template>
     </div>
   `
@@ -310,59 +311,61 @@ Vue.component("list", {
         <input type="submit" value="Add">
       </form>
 
-      <template v-if="lists !== undefined">
-        <div v-for="list in lists" :id="list.id">
-          <template v-if="!list.archived">
+      <div class="card-container">
+        <template v-if="lists !== undefined">
+          <template v-for="list in lists" >
+            <template v-if="!list.archived">
+              <div class="card" :id="list.id">
 
-            <hr>
+                <!--
+                <p>[[ list.title ]]</p>
+                <p>id: [[ list.id ]]</p>
+                <p>Archived: [[ list.archived ]]</p>
+                <p>Collapsed: [[ list.collapsed ]]</p>
+                -->
 
-            <!--
-            <p>[[ list.title ]]</p>
-            <p>id: [[ list.id ]]</p>
-            <p>Archived: [[ list.archived ]]</p>
-            <p>Collapsed: [[ list.collapsed ]]</p>
-            -->
+                <form action="" method="post" v-on:submit.prevent="updateList($event)">
+                  <input type="text" name="title" :value="[[ list.title ]]">
+                  <input type="submit" value="Save">
+                </form>
 
-            <form action="" method="post" v-on:submit.prevent="updateList($event)">
-              <input type="text" name="title" :value="[[ list.title ]]">
-              <input type="submit" value="Save">
-            </form>
+                <button v-on:click="archiveList($event)">Archive</button>
+                <button v-on:click="collapseList($event)">Collapse</button>
 
-            <button v-on:click="archiveList($event)">Archive</button>
-            <button v-on:click="collapseList($event)">Collapse</button>
+                <ul style="padding: 0">
+                  <template v-for="entry in list.entries">
+                    <template v-if="entry.header_id === list.id">
+                      <li :id="entry.id">
 
-            <ul style="padding: 0">
-              <template v-for="entry in list.entries">
-                <template v-if="entry.header_id === list.id">
-                  <li :id="entry.id">
+                        <!--
+                        <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                        <p>id: [[ entry.id ]]</p>
+                        -->
 
-                    <!--
-                    <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                    <p>id: [[ entry.id ]]</p>
-                    -->
+                        <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
+                          <input type="text" name="text" :value="[[ entry.text ]]">
+                          <input type="number" name="amount" :value="[[ entry.amount ]]">
+                          <input type="submit" value="Save">
+                        </form>
 
-                    <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
-                      <input type="text" name="text" :value="[[ entry.text ]]">
-                      <input type="number" name="amount" :value="[[ entry.amount ]]">
-                      <input type="submit" value="Save">
-                    </form>
+                        <button v-on:click="deleteEntry($event)">Delete</button>
+                        <button v-on:click="checkEntry($event)">Check</button>
+                      </li>
+                    </template>
+                  </template>
+                </ul>
 
-                    <button v-on:click="deleteEntry($event)">Delete</button>
-                    <button v-on:click="checkEntry($event)">Check</button>
-                  </li>
-                </template>
-              </template>
-            </ul>
+                <form action="" method="post" v-on:submit.prevent="newEntry($event)">
+                  <input type="text" name="text" placeholder="New item">
+                  <input type="number" name="amount" placeholder="Amount">
+                  <input type="submit" value="Add">
+                </form>
 
-            <form action="" method="post" v-on:submit.prevent="newEntry($event)">
-              <input type="text" name="text" placeholder="New item">
-              <input type="number" name="amount" placeholder="Amount">
-              <input type="submit" value="Add">
-            </form>
-
+              </div>
+            </template>
           </template>
-        </div>
-      </template>
+        </template>
+      </div>
     </div>
   `
 })
