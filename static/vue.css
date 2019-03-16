@@ -29,6 +29,7 @@ footer {
 .card-container {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   align-items: flex-start;
 }
 .card-container .card {
@@ -37,12 +38,34 @@ footer {
   padding: 10px;
   background: lightgray;
 }
+.card-container .card .list-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.card-container .card .list-header button {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 1px solid black;
+}
+.card-container .card .list-header button:hover {
+  background: gray;
+}
+.card-container .card .list-header button i {
+  font-size: 15px;
+}
 .card-container .card h4 {
   margin-top: 0;
   text-align: center;
 }
 .card-container .card ul {
   list-style-type: none;
+}
+
+.new-list {
+  display: flex;
+  justify-content: center;
 }
 
 /*# sourceMappingURL=vue.css.map */

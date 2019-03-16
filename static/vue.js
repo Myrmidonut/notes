@@ -119,6 +119,8 @@ Vue.component("archive", {
 })
 
 Vue.component("list", {
+  delimiters: ["[[", "]]"],
+
   props: ["lists", "token", "page"],
 
   methods: {
@@ -306,10 +308,12 @@ Vue.component("list", {
 
   template: `
     <div v-if="page === 'list'">
-      <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
-        <input type="text" name="title" placeholder="New list">
-        <input type="submit" value="Add">
-      </form>
+      <div class="new-list">
+        <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
+          <input type="text" name="title" placeholder="New list">
+          <input type="submit" value="Add">
+        </form>
+      </div>
 
       <div class="card-container">
         <template v-if="lists !== undefined">
@@ -324,13 +328,19 @@ Vue.component("list", {
                 <p>Collapsed: [[ list.collapsed ]]</p>
                 -->
 
+                <div class="list-header">
+                  <span>[[ list.title ]]</span>
+                  
+                  <div class="list-header-buttons">
+                    <button v-on:click="archiveList($event)"><i class="fas fa-trash-alt"></i></button>
+                    <button v-on:click="collapseList($event)"><i class="fas fa-minus"></i></button>
+                  </div>
+                </div>
+
                 <form action="" method="post" v-on:submit.prevent="updateList($event)">
                   <input type="text" name="title" :value="[[ list.title ]]">
                   <input type="submit" value="Save">
                 </form>
-
-                <button v-on:click="archiveList($event)">Archive</button>
-                <button v-on:click="collapseList($event)">Collapse</button>
 
                 <ul style="padding: 0">
                   <template v-for="entry in list.entries">
