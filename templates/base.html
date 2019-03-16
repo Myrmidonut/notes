@@ -13,103 +13,16 @@
 
   <nav>
     This is my navbar.
-    <!--<a href="/list">List</a>-->
     <a href="/account">Account</a>
     <a href="/archive">Archive</a>
-    <!--<a href="/json">JSON</a>-->
     <hr>
   </nav>
 
   <div id="app">
-    <!--
-    <h1>[[ message ]]</h1>
-
-    <p>[[ lists ]]</p>
-
-    <hr>
-    -->
-    <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
+    <list>
       {% csrf_token %}
-
-      <input type="text" name="title" placeholder="New list">
-      <input type="submit" value="Add">
-    </form>
-
-    <template v-if="lists !== undefined">
-      <div v-for="list in lists" :id="list.id">
-        {% csrf_token %}
-
-        <hr>
-
-        <!--
-        <p>[[ list.title ]]</p>
-        -->
-
-        <form action="" method="post" v-on:submit.prevent="updateList($event)">
-          {% csrf_token %}
-    
-          <input type="text" name="title" :placeholder="[[ list.title ]]">
-          <input type="submit" value="Save">
-        </form>
-
-        <!--
-        <p>id: [[ list.id ]]</p>
-        <p>Archived: [[ list.archived ]]</p>
-        <p>Collapsed: [[ list.collapsed ]]</p>
-        -->
-
-        <button v-on:click="archiveList($event)">Archive</button>
-        <button v-on:click="collapseList($event)">Collapse</button>
-
-        <ul style="padding: 0">
-          <template v-for="entry in list.entries">
-            <template v-if="entry.header_id === list.id">
-              <li :id="entry.id">
-                {% csrf_token %}
-
-                <!--
-                <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                -->
-
-                <!--
-                <p>id: [[ entry.id ]]</p>
-                -->
-
-                <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
-                  {% csrf_token %}
-            
-                  <input type="text" name="text" :value="[[ entry.text ]]">
-                  <input type="number" name="amount" :value="[[ entry.amount ]]">
-                  <input type="submit" value="Save">
-                </form>
-
-                <button v-on:click="deleteEntry($event)">Delete</button>
-                <button v-on:click="checkEntry($event)">Check</button>
-              </li>
-            </template>
-          </template>
-        </ul>
-
-        <form action="" method="post" v-on:submit.prevent="newEntry($event)">
-          {% csrf_token %}
-          <input type="text" name="text" placeholder="New item">
-          <input type="number" name="amount" placeholder="Amount">
-          <input type="submit" value="Add">
-        </form>
-
-      </div>
-
-    </template>
-    
+    </list>
   </div>
-
-  <!--
-    
-  <hr>
-
-  {% block content %}
-  {% endblock %}
-  -->
 
   <footer>
     <hr>
@@ -117,7 +30,10 @@
   </footer>
 
   {% load static %}
-  <script src="{% static 'vue.js' %}"></script>
+  <script src="{% static 'vue.js' %}">
+    var CSRF_TOKEN = '{{ csrf_token }}';
+    var test = "test"
+  </script>
   
 </body>
 </html>
