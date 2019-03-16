@@ -14,8 +14,7 @@ Vue.component("navbar", {
 
   template: `
     <nav>
-      This is my navbar.
-      <a href="/account">Account</a>
+      <a href="">Account</a>
       <a href="/archive" v-on:click.prevent="toggleArchive">Archive</a>
       <hr>
     </nav>
