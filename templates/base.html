@@ -41,7 +41,9 @@
 
         <hr>
 
+        <!--
         <p>[[ list.title ]]</p>
+        -->
 
         <form action="" method="post" v-on:submit.prevent="updateList($event)">
           {% csrf_token %}
@@ -50,21 +52,28 @@
           <input type="submit" value="Save">
         </form>
 
+        <!--
         <p>id: [[ list.id ]]</p>
         <p>Archived: [[ list.archived ]]</p>
         <p>Collapsed: [[ list.collapsed ]]</p>
+        -->
 
         <button v-on:click="archiveList($event)">Archive</button>
         <button v-on:click="collapseList($event)">Collapse</button>
 
-        <ul>
+        <ul style="padding: 0">
           <template v-for="entry in list.entries">
             <template v-if="entry.header_id === list.id">
               <li :id="entry.id">
                 {% csrf_token %}
 
+                <!--
                 <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
+                -->
+
+                <!--
                 <p>id: [[ entry.id ]]</p>
+                -->
 
                 <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
                   {% csrf_token %}
