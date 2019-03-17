@@ -33,30 +33,49 @@ footer {
   align-items: flex-start;
 }
 .card-container .card {
-  width: 200px;
+  width: 300px;
   margin: 20px;
   padding: 10px;
   background: lightgray;
 }
-.card-container .card .list-header {
+.card-container .card .card-row {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 10px;
 }
-.card-container .card .list-header button {
-  width: 30px;
-  height: 30px;
-  background: white;
-  border: 1px solid black;
+.card-container .card .card-row input[type=submit], .card-container .card .card-row button {
+  margin-left: 5px;
 }
-.card-container .card .list-header button:first-of-type {
+.card-container .card .card-row input[type=number] {
   margin-right: 5px;
 }
-.card-container .card .list-header button:hover {
-  background: gray;
+.card-container .card .card-row input[type=text] {
+  flex: 1;
+  width: 100%;
 }
-.card-container .card .list-header button i {
-  font-size: 15px;
+.card-container .card .card-row form {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.card-container .card .card-row .card-row-buttons {
+  display: flex;
+}
+.card-container .card .card-body {
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+.card-container .card .card-body ul .card-row {
+  margin-bottom: 20px;
+}
+.card-container .card .card-body .card-row {
+  margin-bottom: 0;
+}
+.card-container .card input[type=text], .card-container .card input[type=number] {
+  background: lightgray;
+  border: none;
+  border-bottom: 1px solid black;
+  padding: 5px;
 }
 .card-container .card h4 {
   margin-top: 0;
@@ -64,11 +83,42 @@ footer {
 }
 .card-container .card ul {
   list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.card-container .card ul li {
+  display: flex;
+  justify-content: space-between;
+}
+.card-container .card .amount {
+  width: 60px;
 }
 
 .new-list {
   display: flex;
   justify-content: center;
+}
+.new-list form {
+  display: flex;
+}
+.new-list input {
+  height: 28px;
+  padding: 0 5px;
+  border: 1px solid black;
+  margin-right: 5px;
+}
+
+button {
+  width: 30px;
+  height: 30px;
+  background: white;
+  border: 1px solid black;
+}
+button:hover {
+  background: lightgray;
+}
+button i {
+  font-size: 15px;
 }
 
 /*# sourceMappingURL=vue.css.map */

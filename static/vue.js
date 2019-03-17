@@ -40,8 +40,7 @@ Vue.component("archive", {
 
   methods: {
 
-    archiveList: function(e) {
-      const id = e.target.parentElement.id
+    archiveList: function(e, id) {
       let archived
 
       this.lists[id].archived ? archived = false : archived = true
@@ -64,8 +63,7 @@ Vue.component("archive", {
       })
     },
 
-    collapseList: function(e) {
-      const id = e.target.parentElement.id
+    collapseList: function(e, id) {
       let collapsed
 
       this.lists[id].collapsed ? collapsed = false : collapsed = true
@@ -90,30 +88,71 @@ Vue.component("archive", {
   },
 
   template: `
-    <div class="card-container" v-if="page === 'archive'">
-      <template v-if="lists !== undefined">
-        <template v-for="list in lists">
-          <template v-if="list.archived">
-            <div class="card" :id="list.id">
-              <h4>[[ list.title ]]</h4>
+    <div v-if="page === 'archive'">
+      <div class="card-container">
+        <template v-if="lists !== undefined">
+          <template v-for="list in lists">
+            <template v-if="list.archived">
+              <div class="card">
+                <div class="card-row">
 
-              <button v-on:click="archiveList($event)">Restore</button>
-              <button v-on:click="collapseList($event)">Collapse</button>
+                  <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
+                    <input type="text" name="title" :value="[[ list.title ]]">
+                    <button type="submit"><i class="fas fa-save"></i></button>
+                  </form>
 
-              <ul style="padding: 0">
-                <template v-for="entry in list.entries">
-                  <template v-if="entry.header_id === list.id">
-                    <li :id="entry.id">
-                      <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                    </li>
-                  </template>
-                </template>
-              </ul>
+                  <div class="card-row-buttons">
 
-            </div>
+                    <button title="Collapse" v-on:click="collapseList($event, list.id)">
+                      <template v-if="list.collapsed">
+                        <i class="fas fa-angle-up"></i>
+                      </template>
+                      <template v-if="!list.collapsed">
+                        <i class="fas fa-angle-down"></i>
+                      </template>
+                    </button>
+                    <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
+
+                  </div>
+                </div>
+
+                <div class="card-body" v-if="!list.collapsed">
+                  <ul>
+                    <template v-for="entry in list.entries">
+                      <template v-if="entry.header_id === list.id">
+                        <li class="card-row" :id="entry.id">
+
+                          <form action="" method="post" v-on:submit.prevent="updateEntry($event, entry.id)">
+                            <input class="amount" type="number" name="amount" :value="[[ entry.amount ]]">
+                            <input class="item" type="text" name="text" :value="[[ entry.text ]]">
+                            <button type="submit"><i class="fas fa-save"></i></button>
+                          </form>
+
+                          <div class="card-row-buttons">
+                            <button v-on:click.submit.prevent="checkEntry($event, entry.id, list.id)"><i class="fas fa-check"></i></button>
+                            <button v-on:click.submit.prevent="deleteEntry($event, entry.id)"><i class="fas fa-minus"></i></button>
+                          </div>
+
+                        </li>
+                      </template>
+                    </template>
+                  </ul>
+
+                  <div class="card-row">
+
+                    <form action="" method="post" v-on:submit.prevent="newEntry($event, list.id)">
+                      <input class="amount" type="number" name="amount" placeholder="Amount">
+                      <input class="item" type="text" name="text" placeholder="New item">
+                      <button type="submit"><i class="fas fa-plus"></i></button>
+                    </form>
+
+                  </div>
+                </div>
+              </div>
+            </template>
           </template>
         </template>
-      </template>
+      </div>
     </div>
   `
 })
@@ -144,9 +183,7 @@ Vue.component("list", {
       })
     },
 
-    updateList: function(e) {
-      const id = e.target.parentElement.id
-
+    updateList: function(e, id) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
@@ -165,8 +202,7 @@ Vue.component("list", {
       })
     },
 
-    archiveList: function(e) {
-      const id = e.target.parentElement.id
+    archiveList: function(e, id) {
       let archived
 
       this.lists[id].archived ? archived = false : archived = true
@@ -189,8 +225,7 @@ Vue.component("list", {
       })
     },
 
-    collapseList: function(e) {
-      const id = e.target.parentElement.id
+    collapseList: function(e, id) {
       let collapsed
 
       this.lists[id].collapsed ? collapsed = false : collapsed = true
@@ -215,15 +250,13 @@ Vue.component("list", {
 
     // ENTRIES:
 
-    newEntry: function(e) {
-      const id = e.target.parentElement.id
-
+    newEntry: function(e, id) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
-      body.append("text", e.target[0].value)
-      body.append("amount", e.target[1].value)
+      body.append("amount", e.target[0].value)
+      body.append("text", e.target[1].value)
       body.append("id", id)
 
       fetch("/new_entry/", {
@@ -237,9 +270,7 @@ Vue.component("list", {
       })
     },
 
-    deleteEntry: function(e) {
-      const id = e.target.parentElement.id
-
+    deleteEntry: function(e, id) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
@@ -257,9 +288,7 @@ Vue.component("list", {
       })
     },
 
-    checkEntry: function(e) {
-      const id = e.target.parentElement.id
-      const listId = e.target.parentElement.parentElement.parentElement.id
+    checkEntry: function(e, id, listId) {
       let checked
 
       this.lists[listId].entries[id].done ? checked = false : checked = true
@@ -282,15 +311,15 @@ Vue.component("list", {
       })
     },
 
-    updateEntry: function(e) {
-      const id = e.target.parentElement.id
-      const amount = e.target[1].value ? e.target[1].value : 1
+    updateEntry: function(e, id) {
+      const amount = e.target[0].value ? e.target[0].value : 1
+      const text = e.target[1].value
 
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
-      body.append("text", e.target[0].value)
+      body.append("text", text)
       body.append("amount", amount)
       body.append("id", id)
 
@@ -309,68 +338,73 @@ Vue.component("list", {
   template: `
     <div v-if="page === 'list'">
       <div class="new-list">
+
         <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
-          <input type="text" name="title" placeholder="New list">
-          <input type="submit" value="Add">
+          <input type="text" name="title" placeholder="New List">
+          <button type="submit"><i class="fas fa-plus"></i></button>
         </form>
+
       </div>
 
       <div class="card-container">
         <template v-if="lists !== undefined">
-          <template v-for="list in lists" >
+          <template v-for="list in lists">
             <template v-if="!list.archived">
-              <div class="card" :id="list.id">
+              <div class="card">
+                <div class="card-row">
 
-                <!--
-                <p>[[ list.title ]]</p>
-                <p>id: [[ list.id ]]</p>
-                <p>Archived: [[ list.archived ]]</p>
-                <p>Collapsed: [[ list.collapsed ]]</p>
-                -->
+                  <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
+                    <input type="text" name="title" :value="[[ list.title ]]">
+                    <button type="submit"><i class="fas fa-save"></i></button>
+                  </form>
 
-                <div class="list-header">
-                  <span>[[ list.title ]]</span>
+                  <div class="card-row-buttons">
 
-                  <div class="list-header-buttons">
-                    <button title="Collapse" v-on:click="collapseList($event)"><i class="fas fa-minus"></i></button>
-                    <button title="Archive" v-on:click="archiveList($event)"><i class="fas fa-trash-alt"></i></button>
+                    <button title="Collapse" v-on:click="collapseList($event, list.id)">
+                      <template v-if="list.collapsed">
+                        <i class="fas fa-angle-up"></i>
+                      </template>
+                      <template v-if="!list.collapsed">
+                        <i class="fas fa-angle-down"></i>
+                      </template>
+                    </button>
+                    <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
+
                   </div>
                 </div>
 
-                <form action="" method="post" v-on:submit.prevent="updateList($event)">
-                  <input type="text" name="title" :value="[[ list.title ]]">
-                  <input type="submit" value="Save">
-                </form>
+                <div class="card-body" v-if="!list.collapsed">
+                  <ul>
+                    <template v-for="entry in list.entries">
+                      <template v-if="entry.header_id === list.id">
+                        <li class="card-row" :id="entry.id">
 
-                <ul style="padding: 0">
-                  <template v-for="entry in list.entries">
-                    <template v-if="entry.header_id === list.id">
-                      <li :id="entry.id">
+                          <form action="" method="post" v-on:submit.prevent="updateEntry($event, entry.id)">
+                            <input class="amount" type="number" name="amount" :value="[[ entry.amount ]]">
+                            <input class="item" type="text" name="text" :value="[[ entry.text ]]">
+                            <button type="submit"><i class="fas fa-save"></i></button>
+                          </form>
 
-                        <!--
-                        <p>[[ entry.amount ]] [[ entry.text ]] - Checked: [[ entry.done ]]</p>
-                        <p>id: [[ entry.id ]]</p>
-                        -->
+                          <div class="card-row-buttons">
+                            <button v-on:click.submit.prevent="checkEntry($event, entry.id, list.id)"><i class="fas fa-check"></i></button>
+                            <button v-on:click.submit.prevent="deleteEntry($event, entry.id)"><i class="fas fa-minus"></i></button>
+                          </div>
 
-                        <form action="" method="post" v-on:submit.prevent="updateEntry($event)">
-                          <input type="text" name="text" :value="[[ entry.text ]]">
-                          <input type="number" name="amount" :value="[[ entry.amount ]]">
-                          <input type="submit" value="Save">
-                        </form>
-
-                        <button v-on:click="deleteEntry($event)">Delete</button>
-                        <button v-on:click="checkEntry($event)">Check</button>
-                      </li>
+                        </li>
+                      </template>
                     </template>
-                  </template>
-                </ul>
+                  </ul>
 
-                <form action="" method="post" v-on:submit.prevent="newEntry($event)">
-                  <input type="text" name="text" placeholder="New item">
-                  <input type="number" name="amount" placeholder="Amount">
-                  <input type="submit" value="Add">
-                </form>
+                  <div class="card-row">
 
+                    <form action="" method="post" v-on:submit.prevent="newEntry($event, list.id)">
+                      <input class="amount" type="number" name="amount" placeholder="Amount">
+                      <input class="item" type="text" name="text" placeholder="New item">
+                      <button type="submit"><i class="fas fa-plus"></i></button>
+                    </form>
+
+                  </div>
+                </div>
               </div>
             </template>
           </template>

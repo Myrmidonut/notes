@@ -109,6 +109,8 @@ def update_list(request):
 # ENTRIES:
 
 def new_entry(request):
+  print("new")
+
   if request.method == "POST":
     text = request.POST.get("text")
     amount = request.POST.get("amount")
@@ -124,6 +126,8 @@ def new_entry(request):
     return HttpResponse("no entry")
 
 def delete_entry(request):
+  print("delete")
+
   if request.method == "POST":
     entry_id = request.POST.get("id")
     
@@ -137,6 +141,8 @@ def delete_entry(request):
     return HttpResponse("no entry")
 
 def check_entry(request):
+  print("check")
+
   print(request.POST.get("id"))
   print(request.POST.get("checked"))
 
@@ -159,6 +165,8 @@ def check_entry(request):
     return HttpResponse("no entry")
 
 def update_entry(request):
+  print("update")
+  
   if request.method == "POST":
     entry_id = request.POST.get("id")
     text = request.POST.get("text")
