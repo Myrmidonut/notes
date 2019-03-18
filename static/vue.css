@@ -111,11 +111,15 @@ footer {
 }
 .new-list form {
   display: flex;
+  background: #e6ee9c;
+  padding: 10px;
+  border-radius: 15px;
 }
 .new-list input[type=text] {
   height: 28px;
   padding: 0 5px;
-  border: 1px solid black;
+  border: none;
+  border-bottom: 1px solid black;
   margin-right: 5px;
   background: #e6ee9c;
 }

@@ -48,7 +48,7 @@ Vue.component("archive", {
   methods: {
 
     // LISTS:
-    
+
     updateList: function(e, id) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
@@ -218,10 +218,10 @@ Vue.component("archive", {
 
                     <button title="Collapse" v-on:click="collapseList($event, list.id)">
                       <template v-if="list.collapsed">
-                        <i class="fas fa-angle-up"></i>
+                        <i class="fas fa-angle-down"></i>
                       </template>
                       <template v-if="!list.collapsed">
-                        <i class="fas fa-angle-down"></i>
+                        <i class="fas fa-angle-up"></i>
                       </template>
                     </button>
                     <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
@@ -253,7 +253,7 @@ Vue.component("archive", {
                   <div class="card-row">
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
-                      <input class="item" type="text" name="text" placeholder="New item">
+                      <input class="item" type="text" name="text" placeholder="new item">
                       <button type="submit"><i class="fas fa-plus"></i></button>
                     </form>
 
@@ -461,7 +461,7 @@ Vue.component("list", {
       <div class="new-list">
 
         <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
-          <input type="text" name="title" placeholder="New List">
+          <input type="text" name="title" placeholder="new list">
           <button type="submit"><i class="fas fa-plus"></i></button>
         </form>
 
@@ -483,10 +483,10 @@ Vue.component("list", {
 
                     <button title="Collapse" v-on:click="collapseList($event, list.id)">
                       <template v-if="list.collapsed">
-                        <i class="fas fa-angle-up"></i>
+                        <i class="fas fa-angle-down"></i>
                       </template>
                       <template v-if="!list.collapsed">
-                        <i class="fas fa-angle-down"></i>
+                        <i class="fas fa-angle-up"></i>
                       </template>
                     </button>
                     <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
@@ -518,7 +518,7 @@ Vue.component("list", {
                   <div class="card-row">
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
-                      <input class="item" type="text" name="text" placeholder="New item">
+                      <input class="item" type="text" name="text" placeholder="new item">
                       <button type="submit"><i class="fas fa-plus"></i></button>
                     </form>
 
