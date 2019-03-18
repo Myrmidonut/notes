@@ -34,9 +34,7 @@ def combineAll():
   
   return dataCombined
 
-# API:
-
-# ALL:
+# INITIAL:
 
 def get_all(request):
   lists = list(List.objects.values())

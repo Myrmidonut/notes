@@ -533,6 +533,31 @@ Vue.component("list", {
   `
 })
 
+Vue.component("account", {
+  delimiters: ["[[", "]]"],
+
+  methods: {
+    signin: function() {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("username", "")
+      body.append("password", "")
+
+      fetch("/account/signin/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
+    }
+  }
+})
+
 new Vue({
   delimiters: ["[[", "]]"],
 
