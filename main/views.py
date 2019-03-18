@@ -1,22 +1,28 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from .models import List, Item
+from datetime import datetime
 
 def combineAll():
   lists = list(List.objects.values())
   items = list(Item.objects.values())
 
+  print(lists)
+
   dataCombined = {}
 
   for lis in lists:
+    #print(lis["created_at"].strftime("%Y-%m-%d-%H-%M-%S"))
+    #print(lis["updated_at"].strftime("%Y-%m-%d-%H-%M-%S"))
+
     dataCombined[lis["id"]] = {
       "id": lis["id"],
       "title": lis["title"],
       "collapsed": lis["collapsed"],
       "archived": lis["archived"],
       "user": lis["user"],
-      "created_at": list["created_at"],
-      "updated_at": lis["updated_at"],
+      "created_at": lis["created_at"].strftime("%Y-%m-%d-%H-%M-%S"),
+      "updated_at": lis["updated_at"].strftime("%Y-%m-%d-%H-%M-%S"),
       "items": {}
     }
 
