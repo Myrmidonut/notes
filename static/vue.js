@@ -211,7 +211,7 @@ Vue.component("archive", {
 
                   <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
                     <input class="title" type="text" name="title" :value="[[ list.title ]]">
-                    <button type="submit"><i class="fas fa-save"></i></button>
+                    <button type="submit" title="Save"><i class="fas fa-save"></i></button>
                   </form>
 
                   <div class="card-row-buttons">
@@ -224,7 +224,7 @@ Vue.component("archive", {
                         <i class="fas fa-angle-up"></i>
                       </template>
                     </button>
-                    <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
+                    <button title="Restore" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
 
                   </div>
                 </div>
@@ -237,12 +237,12 @@ Vue.component("archive", {
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
                             <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough">
-                            <button type="submit"><i class="fas fa-save"></i></button>
+                            <button type="submit" title="Save"><i class="fas fa-save"></i></button>
                           </form>
 
                           <div class="card-row-buttons">
-                            <button v-on:click.submit.prevent="checkItem($event, item.id, list.id)"><i class="fas fa-check"></i></button>
-                            <button v-on:click.submit.prevent="deleteItem($event, item.id)"><i class="fas fa-minus"></i></button>
+                            <button title="Check" v-on:click.submit.prevent="checkItem($event, item.id, list.id)"><i class="fas fa-check"></i></button>
+                            <button title="Delete" v-on:click.submit.prevent="deleteItem($event, item.id)"><i class="fas fa-minus"></i></button>
                           </div>
 
                         </li>
@@ -254,7 +254,7 @@ Vue.component("archive", {
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
                       <input class="item" type="text" name="text" placeholder="new item">
-                      <button type="submit"><i class="fas fa-plus"></i></button>
+                      <button title="Add" type="submit"><i class="fas fa-plus"></i></button>
                     </form>
 
                   </div>
@@ -462,7 +462,7 @@ Vue.component("list", {
 
         <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
           <input type="text" name="title" placeholder="new list">
-          <button type="submit"><i class="fas fa-plus"></i></button>
+          <button title="Add" type="submit"><i class="fas fa-plus"></i></button>
         </form>
 
       </div>
@@ -476,7 +476,7 @@ Vue.component("list", {
 
                   <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
                     <input class="title" type="text" name="title" :value="[[ list.title ]]">
-                    <button type="submit"><i class="fas fa-save"></i></button>
+                    <button title="Save" type="submit"><i class="fas fa-save"></i></button>
                   </form>
 
                   <div class="card-row-buttons">
@@ -502,12 +502,12 @@ Vue.component("list", {
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
                             <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough">
-                            <button type="submit"><i class="fas fa-save"></i></button>
+                            <button title="Save" type="submit"><i class="fas fa-save"></i></button>
                           </form>
 
                           <div class="card-row-buttons">
-                            <button v-on:click.submit.prevent="checkItem($event, item.id, list.id)"><i class="fas fa-check"></i></button>
-                            <button v-on:click.submit.prevent="deleteItem($event, item.id)"><i class="fas fa-minus"></i></button>
+                            <button title="Check" v-on:click.submit.prevent="checkItem($event, item.id, list.id)"><i class="fas fa-check"></i></button>
+                            <button title="Delete" v-on:click.submit.prevent="deleteItem($event, item.id)"><i class="fas fa-minus"></i></button>
                           </div>
 
                         </li>
@@ -519,7 +519,7 @@ Vue.component("list", {
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
                       <input class="item" type="text" name="text" placeholder="new item">
-                      <button type="submit"><i class="fas fa-plus"></i></button>
+                      <button title="Add" type="submit"><i class="fas fa-plus"></i></button>
                     </form>
 
                   </div>
