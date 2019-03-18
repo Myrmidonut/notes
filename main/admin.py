@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Entry, List
+from .models import Item, List
 
 class ListAdmin(admin.ModelAdmin):
-  list_display = ("title", "collapsed", "archived")
+  list_display = ("title", "collapsed", "archived", "user", "created_at", "updated_at")
 
-class EntryAdmin(admin.ModelAdmin):
-  list_display = ("header", "text", "amount", "done")
+class ItemAdmin(admin.ModelAdmin):
+  list_display = ("header", "text", "checked")
 
 admin.site.register(List, ListAdmin)
-admin.site.register(Entry, EntryAdmin)
+admin.site.register(Item, ItemAdmin)

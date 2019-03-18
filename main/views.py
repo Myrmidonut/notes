@@ -1,10 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from .models import List, Entry
+from .models import List, Item
 
 def combineAll():
   lists = list(List.objects.values())
-  entries = list(Entry.objects.values())
+  items = list(Item.objects.values())
 
   dataCombined = {}
 
@@ -14,17 +14,19 @@ def combineAll():
       "title": lis["title"],
       "collapsed": lis["collapsed"],
       "archived": lis["archived"],
-      "entries": {}
+      "user": lis["user"],
+      "created_at": list["created_at"],
+      "updated_at": lis["updated_at"],
+      "items": {}
     }
 
-    for entry in entries:
-      if entry["header_id"] == lis["id"]:
-        dataCombined[lis["id"]]["entries"][entry["id"]] = {
-          "id": entry["id"],
-          "header_id": entry["header_id"],
-          "text": entry["text"],
-          "amount": entry["amount"],
-          "done": entry["done"]
+    for item in items:
+      if item["header_id"] == lis["id"]:
+        dataCombined[lis["id"]]["items"][item["id"]] = {
+          "id": item["id"],
+          "header_id": item["header_id"],
+          "text": item["text"],
+          "checked": item["checked"]
         }
   
   return dataCombined
@@ -33,9 +35,9 @@ def combineAll():
 
 def index(request):
   lists = List.objects.all()
-  entries = Entry.objects.all()
+  items = Item.objects.all()
 
-  return render(request, "main/index.html", {"lists": lists, "entries": entries})
+  return render(request, "main/index.html", {"lists": lists, "items": items})
 
 # API:
 
@@ -65,7 +67,7 @@ def archive_list(request):
       archived = False
 
     updatedList = List(id=list_id, archived=archived)
-    updatedList.save(update_fields=["archived"])
+    updatedList.save(update_fields=["archived", "updated_at"])
 
     allData = combineAll()
 
@@ -84,7 +86,7 @@ def collapse_list(request):
       collapsed = False
 
     updatedList = List(id=list_id, collapsed=collapsed)
-    updatedList.save(update_fields=["collapsed"])
+    updatedList.save(update_fields=["collapsed", "updated_at"])
 
     allData = combineAll()
 
@@ -98,7 +100,7 @@ def update_list(request):
     title = request.POST.get("title")
 
     updatedList = List(id=list_id, title=title)
-    updatedList.save(update_fields=["title"])
+    updatedList.save(update_fields=["title", "updated_at"])
 
     allData = combineAll()
 
@@ -108,72 +110,67 @@ def update_list(request):
 
 # ENTRIES:
 
-def new_entry(request):
+def new_item(request):
   print("new")
 
   if request.method == "POST":
     text = request.POST.get("text")
-    amount = request.POST.get("amount")
     header_id = request.POST.get("id")
     
-    newEntry = Entry(header_id=header_id, text=text, amount=amount)
-    newEntry.save()
+    newItem = Item(header_id=header_id, text=text)
+    newItem.save()
 
     allData = combineAll()
 
     return JsonResponse(allData, safe=False)
   else:
-    return HttpResponse("no entry")
+    return HttpResponse("no item")
 
-def delete_entry(request):
+def delete_item(request):
   print("delete")
 
   if request.method == "POST":
-    entry_id = request.POST.get("id")
+    item_id = request.POST.get("id")
     
-    entry = Entry(id=entry_id)
-    entry.delete()
+    item = Item(id=item_id)
+    item.delete()
 
     allData = combineAll()
 
     return JsonResponse(allData, safe=False)
   else:
-    return HttpResponse("no entry")
+    return HttpResponse("no item")
 
-def check_entry(request):
+def check_item(request):
   print("check")
 
-  print(request.POST.get("id"))
-  print(request.POST.get("checked"))
-
   if request.method == "POST":
-    entry_id = request.POST.get("id")
-    done = False
+    item_id = request.POST.get("id")
+    checked = False
     
     if request.POST.get("checked") == "true":
-      done = True
+      checked = True
     else:
-      done = False
+      checked = False
 
-    updatedEntry = Entry(id=entry_id, done=done)
-    updatedEntry.save(update_fields=["done"])
+    updatedItem = Item(id=item_id, checked=checked)
+    updatedItem.save(update_fields=["checked"])
 
     allData = combineAll()
 
     return JsonResponse(allData, safe=False)
   else:
-    return HttpResponse("no entry")
+    return HttpResponse("no item")
 
-def update_entry(request):
+def update_item(request):
   print("update")
   
   if request.method == "POST":
-    entry_id = request.POST.get("id")
+    item_id = request.POST.get("id")
     text = request.POST.get("text")
-    amount = request.POST.get("amount")
 
-    updatedEntry = Entry(id=entry_id, text=text, amount=amount)
-    updatedEntry.save(update_fields=["text", "amount"])
+    updatedItem = Item(id=item_id, text=text)
+    updatedItem.save(update_fields=["text"])
 
     allData = combineAll()
 
@@ -185,7 +182,7 @@ def update_entry(request):
 
 def get_all(request):
   lists = list(List.objects.values())
-  entries = list(Entry.objects.values())
+  items = list(Item.objects.values())
 
   allData = combineAll()
 
