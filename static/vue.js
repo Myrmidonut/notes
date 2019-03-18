@@ -178,6 +178,8 @@ Vue.component("list", {
       .then(res => res.json())
       .then(data => {
         this.$emit("update:lists", data)
+
+        e.target[0].value = ""
       })
     },
 
@@ -264,6 +266,8 @@ Vue.component("list", {
       .then(res => res.json())
       .then(data => {
         this.$emit("update:lists", data)
+
+        e.target[0].value = ""
       })
     },
 

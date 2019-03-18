@@ -4,26 +4,26 @@ html, body {
 }
 
 body {
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+nav, footer {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  background: lightgray;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
 }
 
 nav {
-  position: fixed;
   top: 0;
-  left: 0;
-  width: 100%;
-  background: lightgray;
-  height: 30px;
 }
 
 footer {
-  position: fixed;
   bottom: 0;
-  left: 0;
-  width: 100%;
-  background: lightgray;
-  height: 30px;
 }
 
 .card-container {
@@ -97,6 +97,8 @@ footer {
 .new-list {
   display: flex;
   justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 .new-list form {
   display: flex;
