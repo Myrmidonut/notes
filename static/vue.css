@@ -8,11 +8,15 @@ body {
   padding-bottom: 30px;
 }
 
+* {
+  font-family: "Raleway", sans-serif;
+}
+
 nav, footer {
   position: fixed;
   left: 0;
   width: 100%;
-  background: lightgray;
+  background: #e6ee9c;
   height: 30px;
   text-align: center;
   line-height: 30px;
@@ -36,7 +40,8 @@ footer {
   width: 300px;
   margin: 20px;
   padding: 10px;
-  background: lightgray;
+  background: #e6ee9c;
+  border-radius: 15px;
 }
 .card-container .card .card-row {
   display: flex;
@@ -75,8 +80,8 @@ footer {
 .card-container .card .card-body .card-row {
   margin-bottom: 0;
 }
-.card-container .card input[type=text], .card-container .card input[type=number] {
-  background: lightgray;
+.card-container .card input[type=text] {
+  background: #e6ee9c;
   border: none;
   border-bottom: 1px solid black;
   padding: 5px;
@@ -107,24 +112,30 @@ footer {
 .new-list form {
   display: flex;
 }
-.new-list input {
+.new-list input[type=text] {
   height: 28px;
   padding: 0 5px;
   border: 1px solid black;
   margin-right: 5px;
+  background: #e6ee9c;
 }
 
 button {
   width: 30px;
   height: 30px;
-  background: white;
+  background: #FFEB3B;
   border: 1px solid black;
 }
 button:hover {
-  background: lightgray;
+  background: #F9A825;
 }
 button i {
   font-size: 15px;
+}
+
+a {
+  padding: 5px;
+  color: black;
 }
 
 /*# sourceMappingURL=vue.css.map */

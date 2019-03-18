@@ -4,7 +4,6 @@ Vue.component("navbar", {
   props: ["page"],
 
   methods: {
-
     toggleArchive: function() {
       if (this.page === "list") {
         this.$emit("update:page", "archive")
@@ -28,7 +27,7 @@ Vue.component("navbar", {
 Vue.component("my-footer", {
   template: `
     <footer>
-      This is my footer.
+      <a href="https://github.com/Myrmidonut/shoppinglist" target="_blank">by Frederik</a>
     </footer>
   `
 })
@@ -38,7 +37,36 @@ Vue.component("archive", {
 
   props: ["lists", "token", "page"],
 
+  filters: {
+    lineThrough: function (checked) {
+      if (checked) {
+        return "text-decoration: line-through; color: gray;"
+      }
+    }
+  },
+
   methods: {
+
+    // LISTS:
+    
+    updateList: function(e, id) {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+      body.append("title", e.target[0].value)
+
+      fetch("/update_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
 
     archiveList: function(e, id) {
       let archived
@@ -85,6 +113,91 @@ Vue.component("archive", {
         this.$emit("update:lists", data)
       })
     },
+
+    // ITEMS:
+
+    newItem: function(e, id) {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("text", e.target[0].value)
+      body.append("id", id)
+
+      fetch("/new_item/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+
+        e.target[0].value = ""
+      })
+    },
+
+    deleteItem: function(e, id) {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+
+      fetch("/delete_item/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
+
+    checkItem: function(e, id, listId) {
+      let checked
+
+      this.lists[listId].items[id].checked ? checked = false : checked = true
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+      body.append("checked", checked)
+
+      fetch("/check_item/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
+
+    updateItem: function(e, id) {
+      const text = e.target[0].value
+
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("text", text)
+      body.append("id", id)
+
+      fetch("/update_item/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    }
   },
 
   template: `
@@ -97,7 +210,7 @@ Vue.component("archive", {
                 <div class="card-row">
 
                   <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
-                    <input type="text" name="title" :value="[[ list.title ]]">
+                    <input class="title" type="text" name="title" :value="[[ list.title ]]">
                     <button type="submit"><i class="fas fa-save"></i></button>
                   </form>
 
@@ -123,7 +236,7 @@ Vue.component("archive", {
                         <li class="card-row" :id="item.id">
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
-                            <input class="item" type="text" name="text" :value="[[ item.text ]]">
+                            <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough">
                             <button type="submit"><i class="fas fa-save"></i></button>
                           </form>
 
@@ -161,14 +274,6 @@ Vue.component("list", {
   props: ["lists", "token", "page"],
 
   filters: {
-    capitalize: function (value) {
-      console.log("filter")
-
-      if (!value) return ''
-      value = value.toString()
-      return value.charAt(0).toUpperCase() + value.slice(1)
-    },
-
     lineThrough: function (checked) {
       if (checked) {
         return "text-decoration: line-through; color: gray;"
@@ -177,6 +282,7 @@ Vue.component("list", {
   },
 
   methods: {
+
     // LISTS:
 
     newList: function(e) {

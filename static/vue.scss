@@ -1,3 +1,5 @@
+// RESET:
+
 html, body {
   margin: 0;
   padding: 0;
@@ -8,11 +10,25 @@ body {
   padding-bottom: 30px;
 }
 
+// VARIABLES:
+
+$green: #e6ee9c;
+$yellow: #FFEB3B;
+$orange: #F9A825;
+
+$fontFamily: 'Raleway', sans-serif;
+
+* {
+  font-family: $fontFamily;
+}
+
+// NAV FOOTER:
+
 nav, footer {
   position: fixed;
   left: 0;
   width: 100%;
-  background: lightgray;
+  background: $green;
   height: 30px;
   text-align: center;
   line-height: 30px;
@@ -26,6 +42,8 @@ footer {
   bottom: 0;
 }
 
+// CONTENT:
+
 .card-container {
   display: flex;
   flex-wrap: wrap;
@@ -36,7 +54,8 @@ footer {
     width: 300px;
     margin: 20px;
     padding: 10px;
-    background: lightgray;
+    background: $green;
+    border-radius: 15px;
 
     .card-row {
       display: flex;
@@ -87,8 +106,8 @@ footer {
       }
     }
 
-    input[type="text"], input[type="number"] {
-      background: lightgray;
+    input[type="text"] {
+      background: $green;
       border: none;
       border-bottom: 1px solid black;
       padding: 5px;
@@ -126,25 +145,31 @@ footer {
     display: flex;
   }
 
-  input {
+  input[type="text"] {
     height: 28px;
     padding: 0 5px;
     border: 1px solid black;
     margin-right: 5px;
+    background: $green;
   }
 }
 
 button {
   width: 30px;
   height: 30px;
-  background: white;
+  background: $yellow;
   border: 1px solid black;
 
   &:hover {
-    background: lightgray;
+    background: $orange;
   }
 
   i {
     font-size: 15px;
   }
+}
+
+a {
+  padding: 5px;
+  color: black;
 }
