@@ -123,7 +123,6 @@ Vue.component("archive", {
                         <li class="card-row" :id="item.id">
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
-                            <input class="amount" type="number" name="amount" :value="[[ item.amount ]]">
                             <input class="item" type="text" name="text" :value="[[ item.text ]]">
                             <button type="submit"><i class="fas fa-save"></i></button>
                           </form>
@@ -141,7 +140,6 @@ Vue.component("archive", {
                   <div class="card-row">
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
-                      <input class="amount" type="number" name="amount" placeholder="Amount">
                       <input class="item" type="text" name="text" placeholder="New item">
                       <button type="submit"><i class="fas fa-plus"></i></button>
                     </form>
@@ -255,8 +253,7 @@ Vue.component("list", {
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
-      body.append("amount", e.target[0].value)
-      body.append("text", e.target[1].value)
+      body.append("text", e.target[0].value)
       body.append("id", id)
 
       fetch("/new_item/", {
@@ -312,15 +309,13 @@ Vue.component("list", {
     },
 
     updateItem: function(e, id) {
-      const amount = e.target[0].value ? e.target[0].value : 1
-      const text = e.target[1].value
+      const text = e.target[0].value
 
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
       body.append("text", text)
-      body.append("amount", amount)
       body.append("id", id)
 
       fetch("/update_item/", {
@@ -380,7 +375,6 @@ Vue.component("list", {
                         <li class="card-row" :id="item.id">
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
-                            <input class="amount" type="number" name="amount" :value="[[ item.amount ]]">
                             <input class="item" type="text" name="text" :value="[[ item.text ]]">
                             <button type="submit"><i class="fas fa-save"></i></button>
                           </form>
@@ -398,7 +392,6 @@ Vue.component("list", {
                   <div class="card-row">
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
-                      <input class="amount" type="number" name="amount" placeholder="Amount">
                       <input class="item" type="text" name="text" placeholder="New item">
                       <button type="submit"><i class="fas fa-plus"></i></button>
                     </form>
