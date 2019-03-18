@@ -57,7 +57,7 @@ Vue.component("archive", {
       body.append("id", id)
       body.append("title", e.target[0].value)
 
-      fetch("/update_list/", {
+      fetch("/api/update_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -80,7 +80,7 @@ Vue.component("archive", {
       body.append("id", id)
       body.append("archived", archived)
 
-      fetch("/archive_list/", {
+      fetch("/api/archive_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -103,7 +103,7 @@ Vue.component("archive", {
       body.append("id", id)
       body.append("collapsed", collapsed)
 
-      fetch("/collapse_list/", {
+      fetch("/api/collapse_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -124,7 +124,7 @@ Vue.component("archive", {
       body.append("text", e.target[0].value)
       body.append("id", id)
 
-      fetch("/new_item/", {
+      fetch("/api/new_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -144,7 +144,7 @@ Vue.component("archive", {
       let body = new FormData()
       body.append("id", id)
 
-      fetch("/delete_item/", {
+      fetch("/api/delete_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -167,7 +167,7 @@ Vue.component("archive", {
       body.append("id", id)
       body.append("checked", checked)
 
-      fetch("/check_item/", {
+      fetch("/api/check_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -188,7 +188,7 @@ Vue.component("archive", {
       body.append("text", text)
       body.append("id", id)
 
-      fetch("/update_item/", {
+      fetch("/api/update_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -292,7 +292,7 @@ Vue.component("list", {
       let body = new FormData()
       body.append("title", e.target[0].value)
 
-      fetch("/new_list/", {
+      fetch("/api/new_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -313,7 +313,7 @@ Vue.component("list", {
       body.append("id", id)
       body.append("title", e.target[0].value)
 
-      fetch("/update_list/", {
+      fetch("/api/update_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -336,7 +336,7 @@ Vue.component("list", {
       body.append("id", id)
       body.append("archived", archived)
 
-      fetch("/archive_list/", {
+      fetch("/api/archive_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -359,7 +359,7 @@ Vue.component("list", {
       body.append("id", id)
       body.append("collapsed", collapsed)
 
-      fetch("/collapse_list/", {
+      fetch("/api/collapse_list/", {
         method: "post",
         headers: headers,
         body: body
@@ -380,7 +380,7 @@ Vue.component("list", {
       body.append("text", e.target[0].value)
       body.append("id", id)
 
-      fetch("/new_item/", {
+      fetch("/api/new_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -400,7 +400,7 @@ Vue.component("list", {
       let body = new FormData()
       body.append("id", id)
 
-      fetch("/delete_item/", {
+      fetch("/api/delete_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -423,7 +423,7 @@ Vue.component("list", {
       body.append("id", id)
       body.append("checked", checked)
 
-      fetch("/check_item/", {
+      fetch("/api/check_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -444,7 +444,7 @@ Vue.component("list", {
       body.append("text", text)
       body.append("id", id)
 
-      fetch("/update_item/", {
+      fetch("/api/update_item/", {
         method: "post",
         headers: headers,
         body: body
@@ -572,7 +572,7 @@ new Vue({
     },
 
     getData: function() {
-      fetch("/get_all")
+      fetch("/api/get_all")
       .then(res => res.json())
       .then(data => {
         this.lists = data

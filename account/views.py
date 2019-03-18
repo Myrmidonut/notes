@@ -1,7 +1,11 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 
-def index(request):
-  data = "Account View"
+def login(request):
+  return JsonResponse("login", safe=False)
 
-  return render(request, "account/index.html", {"data": data})
+def logout(request):
+  return JsonResponse("logout", safe=False)
+
+def register(request):
+  return JsonResponse("register", safe=False)
