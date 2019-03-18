@@ -42,6 +42,11 @@ footer {
       display: flex;
       justify-content: space-between;
 
+      .title {
+        font-weight: bold;
+        font-size: 18px;
+      }
+
       input[type="submit"], button {
         margin-left: 5px;
       }

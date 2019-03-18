@@ -160,6 +160,22 @@ Vue.component("list", {
 
   props: ["lists", "token", "page"],
 
+  filters: {
+    capitalize: function (value) {
+      console.log("filter")
+
+      if (!value) return ''
+      value = value.toString()
+      return value.charAt(0).toUpperCase() + value.slice(1)
+    },
+
+    lineThrough: function (checked) {
+      if (checked) {
+        return "text-decoration: line-through; color: gray;"
+      }
+    }
+  },
+
   methods: {
     // LISTS:
 
@@ -292,7 +308,7 @@ Vue.component("list", {
     checkItem: function(e, id, listId) {
       let checked
 
-      this.lists[listId].items[id].done ? checked = false : checked = true
+      this.lists[listId].items[id].checked ? checked = false : checked = true
 
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
@@ -353,7 +369,7 @@ Vue.component("list", {
                 <div class="card-row">
 
                   <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
-                    <input type="text" name="title" :value="[[ list.title ]]">
+                    <input class="title" type="text" name="title" :value="[[ list.title ]]">
                     <button type="submit"><i class="fas fa-save"></i></button>
                   </form>
 
@@ -379,7 +395,7 @@ Vue.component("list", {
                         <li class="card-row" :id="item.id">
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
-                            <input class="item" type="text" name="text" :value="[[ item.text ]]">
+                            <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough">
                             <button type="submit"><i class="fas fa-save"></i></button>
                           </form>
 

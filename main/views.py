@@ -3,18 +3,15 @@ from django.http import JsonResponse, HttpResponse
 from .models import List, Item
 from datetime import datetime
 
+# MIDDLEWARE:
+
 def combineAll():
   lists = list(List.objects.values())
   items = list(Item.objects.values())
 
-  print(lists)
-
   dataCombined = {}
 
   for lis in lists:
-    #print(lis["created_at"].strftime("%Y-%m-%d-%H-%M-%S"))
-    #print(lis["updated_at"].strftime("%Y-%m-%d-%H-%M-%S"))
-
     dataCombined[lis["id"]] = {
       "id": lis["id"],
       "title": lis["title"],
@@ -114,11 +111,9 @@ def update_list(request):
   else:
     return HttpResponse("no update")
 
-# ENTRIES:
+# ITEMS:
 
 def new_item(request):
-  print("new")
-
   if request.method == "POST":
     text = request.POST.get("text")
     header_id = request.POST.get("id")
@@ -133,8 +128,6 @@ def new_item(request):
     return HttpResponse("no item")
 
 def delete_item(request):
-  print("delete")
-
   if request.method == "POST":
     item_id = request.POST.get("id")
     
@@ -148,8 +141,6 @@ def delete_item(request):
     return HttpResponse("no item")
 
 def check_item(request):
-  print("check")
-
   if request.method == "POST":
     item_id = request.POST.get("id")
     checked = False
@@ -169,8 +160,6 @@ def check_item(request):
     return HttpResponse("no item")
 
 def update_item(request):
-  print("update")
-  
   if request.method == "POST":
     item_id = request.POST.get("id")
     text = request.POST.get("text")

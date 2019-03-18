@@ -42,6 +42,10 @@ footer {
   display: flex;
   justify-content: space-between;
 }
+.card-container .card .card-row .title {
+  font-weight: bold;
+  font-size: 18px;
+}
 .card-container .card .card-row input[type=submit], .card-container .card .card-row button {
   margin-left: 5px;
 }
