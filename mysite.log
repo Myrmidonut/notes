@@ -1,0 +1,91 @@
+[19/Mar/2019 21:58:56] ERROR [django.request:228] Internal Server Error: /
+Traceback (most recent call last):
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/home/frederik/Schreibtisch/Web Dev/Projects/Notes/notes/main/views.py", line 7, in index
+    return render(request, "main/index.html")
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/shortcuts.py", line 36, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/loader.py", line 62, in render_to_string
+    return template.render(context, request)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/backends/django.py", line 61, in render
+    return self.template.render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 171, in render
+    return self._render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 904, in render_annotated
+    return self.render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/loader_tags.py", line 150, in render
+    return compiled_parent._render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 163, in _render
+    return self.nodelist.render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 937, in render
+    bit = node.render_annotated(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/template/base.py", line 904, in render_annotated
+    return self.render(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/templatetags/static.py", line 106, in render
+    url = self.url(context)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/templatetags/static.py", line 103, in url
+    return self.handle_simple(path)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/templatetags/static.py", line 118, in handle_simple
+    return staticfiles_storage.url(path)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/contrib/staticfiles/storage.py", line 152, in url
+    return self._url(self.stored_name, name, force)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/contrib/staticfiles/storage.py", line 131, in _url
+    hashed_name = hashed_name_func(*args)
+  File "/home/frederik/.local/lib/python3.6/site-packages/django/contrib/staticfiles/storage.py", line 419, in stored_name
+    raise ValueError("Missing staticfiles manifest entry for '%s'" % clean_name)
+ValueError: Missing staticfiles manifest entry for 'css/vue.css'
+[19/Mar/2019 21:58:56] ERROR [django.server:154] "GET / HTTP/1.1" 500 27
+[19/Mar/2019 22:01:07] INFO [django.server:154] "GET / HTTP/1.1" 200 1664
+[19/Mar/2019 22:01:07] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[19/Mar/2019 22:01:07] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[19/Mar/2019 22:01:08] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[19/Mar/2019 22:01:08] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[19/Mar/2019 22:01:08] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[19/Mar/2019 22:01:08] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[19/Mar/2019 22:01:08] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 439
+[19/Mar/2019 22:02:14] INFO [django.server:154] "POST /api/new_list/ HTTP/1.1" 200 583
+[19/Mar/2019 22:02:32] INFO [django.server:154] "POST /api/update_list/ HTTP/1.1" 200 594
+[19/Mar/2019 22:02:33] INFO [django.server:154] "GET / HTTP/1.1" 200 1664
+[19/Mar/2019 22:02:33] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[19/Mar/2019 22:02:33] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[19/Mar/2019 22:02:34] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[19/Mar/2019 22:02:34] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[19/Mar/2019 22:02:34] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[19/Mar/2019 22:02:34] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[19/Mar/2019 22:02:34] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 629
+[19/Mar/2019 22:05:47] INFO [django.server:154] "GET / HTTP/1.1" 200 1664
+[19/Mar/2019 22:05:47] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[19/Mar/2019 22:05:47] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[19/Mar/2019 22:05:48] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[19/Mar/2019 22:05:48] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[19/Mar/2019 22:05:48] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[19/Mar/2019 22:05:48] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[19/Mar/2019 22:05:48] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 629
+[19/Mar/2019 22:14:16] ERROR [django.security.DisallowedHost:77] Invalid HTTP_HOST header: '127.0.0.1:8000'. You may need to add '127.0.0.1' to ALLOWED_HOSTS.
+[19/Mar/2019 22:14:16] WARNING [django.request:228] Bad Request: /
+[19/Mar/2019 22:14:16] WARNING [django.server:154] "GET / HTTP/1.1" 400 26
+[19/Mar/2019 22:14:31] INFO [django.server:154] "GET / HTTP/1.1" 200 1664
+[19/Mar/2019 22:14:31] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[19/Mar/2019 22:14:31] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[19/Mar/2019 22:14:31] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[19/Mar/2019 22:14:31] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[19/Mar/2019 22:14:32] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[19/Mar/2019 22:14:32] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[19/Mar/2019 22:14:32] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 629
+[19/Mar/2019 22:15:35] INFO [django.server:154] "GET / HTTP/1.1" 200 1664
+[19/Mar/2019 22:15:35] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[19/Mar/2019 22:15:35] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[19/Mar/2019 22:15:35] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[19/Mar/2019 22:15:35] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[19/Mar/2019 22:15:36] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[19/Mar/2019 22:15:36] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[19/Mar/2019 22:15:36] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 629
