@@ -12,14 +12,14 @@ def signin(request):
   if user is not None:
     login(request, user)
 
-    return JsonResponse("logged in", safe=False)
+    return JsonResponse({"user": request.user.username}, safe=False)
   else:
-    return JsonResponse("not logged in", safe=False)
+    return JsonResponse({"error": "Login failed."}, safe=False)
 
 def signout(request):
   logout(request)
 
-  return JsonResponse("logout", safe=False)
+  return JsonResponse({"status": "Logout successful."}, safe=False)
 
 def signup(request):
   username = request.POST["username"]

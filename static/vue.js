@@ -581,14 +581,9 @@ Vue.component("account", {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
-      let body = new FormData()
-      body.append("username", "")
-      body.append("password", "")
-
       fetch("/account/signout/", {
         method: "post",
-        headers: headers,
-        body: body
+        headers: headers
       })
       .then(res => res.json())
       .then(data => {
@@ -625,6 +620,8 @@ Vue.component("account", {
       <input type="password" name="password" placeholder="password">
       <button type="submit">Login</button>
     </form>
+
+    <button title="Sign Out" v-on:click="signout">Sign Out</button>
   </div>
   `
 })

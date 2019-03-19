@@ -5,9 +5,16 @@ from datetime import datetime
 
 # MIDDLEWARE:
 
-def combineAll():
-  lists = list(List.objects.values())
-  items = list(Item.objects.values())
+def combineAll(request):
+  if request.user.is_authenticated:
+    user = request.user.username
+
+    lists = list(List.objects.filter(user=user).values())
+    items = list(Item.objects.values())
+  else:
+    user = "anonymous"
+    lists = list(List.objects.filter(user=user).values())
+    items = list(Item.objects.values())
 
   dataCombined = {}
 
@@ -37,10 +44,7 @@ def combineAll():
 # INITIAL:
 
 def get_all(request):
-  lists = list(List.objects.values())
-  items = list(Item.objects.values())
-
-  allData = combineAll()
+  allData = combineAll(request)
 
   return JsonResponse(allData, safe=False)
 
@@ -49,11 +53,16 @@ def get_all(request):
 def new_list(request):
   if request.method == "POST":
     title = request.POST.get("title")
-
-    newList = List(title=title)
+    
+    if request.user.is_authenticated:
+      user = request.user.username
+      newList = List(title=title, user=request.user.username)
+    else:
+      newList = List(title=title)
+    
     newList.save()
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -72,7 +81,7 @@ def archive_list(request):
     updatedList = List(id=list_id, archived=archived)
     updatedList.save(update_fields=["archived", "updated_at"])
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -91,7 +100,7 @@ def collapse_list(request):
     updatedList = List(id=list_id, collapsed=collapsed)
     updatedList.save(update_fields=["collapsed", "updated_at"])
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -105,7 +114,7 @@ def update_list(request):
     updatedList = List(id=list_id, title=title)
     updatedList.save(update_fields=["title", "updated_at"])
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -121,7 +130,7 @@ def new_item(request):
     newItem = Item(header_id=header_id, text=text)
     newItem.save()
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -134,7 +143,7 @@ def delete_item(request):
     item = Item(id=item_id)
     item.delete()
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -153,7 +162,7 @@ def check_item(request):
     updatedItem = Item(id=item_id, checked=checked)
     updatedItem.save(update_fields=["checked"])
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
@@ -167,7 +176,7 @@ def update_item(request):
     updatedItem = Item(id=item_id, text=text)
     updatedItem.save(update_fields=["text"])
 
-    allData = combineAll()
+    allData = combineAll(request)
 
     return JsonResponse(allData, safe=False)
   else:
