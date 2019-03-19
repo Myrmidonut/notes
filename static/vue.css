@@ -18,16 +18,25 @@ nav, footer {
   width: 100%;
   background: #e6ee9c;
   height: 30px;
-  text-align: center;
   line-height: 30px;
 }
 
 nav {
   top: 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+nav span {
+  margin-left: 10px;
+}
+nav a:last-of-type {
+  margin-right: 10px;
 }
 
 footer {
   bottom: 0;
+  text-align: center;
 }
 
 .card-container {
@@ -124,6 +133,35 @@ footer {
   background: #e6ee9c;
 }
 
+.account {
+  margin-top: 20px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+}
+.account button {
+  width: 80px;
+}
+.account form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background: #e6ee9c;
+  padding: 10px;
+  border-radius: 15px;
+}
+.account form input {
+  height: 28px;
+  padding-left: 5px;
+  margin-bottom: 10px;
+  background: #e6ee9c;
+  border: none;
+  border-bottom: 1px solid black;
+}
+
 button {
   width: 30px;
   height: 30px;
@@ -132,6 +170,7 @@ button {
 }
 button:hover {
   background: #F9A825;
+  cursor: pointer;
 }
 button i {
   font-size: 15px;

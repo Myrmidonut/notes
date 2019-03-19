@@ -46,7 +46,12 @@ def combineAll(request):
 def get_all(request):
   allData = combineAll(request)
 
-  return JsonResponse(allData, safe=False)
+  if request.user.is_authenticated:
+    username = request.user.username
+  else:
+    username = "Anonymous"
+
+  return JsonResponse({"username": username, "data": allData}, safe=False)
 
 # LISTS:
 

@@ -18,11 +18,11 @@
 <body>
 
   <div id="app">
-    <navbar :page.sync="page"></navbar>
+    <navbar :page.sync="page" :username.sync="username"></navbar>
 
     <list :lists.sync="lists" :token="token" :page="page"></list>
     <archive :lists.sync="lists" :token="token" :page="page"></archive>
-    <account :token="token" :page="page"></account>
+    <account :token="token" :page.sync="page" :username.sync="username"></account>
 
     <my-footer></my-footer>
   </div>

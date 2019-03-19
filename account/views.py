@@ -12,7 +12,7 @@ def signin(request):
   if user is not None:
     login(request, user)
 
-    return JsonResponse({"user": request.user.username}, safe=False)
+    return JsonResponse({"username": request.user.username}, safe=False)
   else:
     return JsonResponse({"error": "Login failed."}, safe=False)
 
@@ -25,8 +25,16 @@ def signup(request):
   username = request.POST["username"]
   password = request.POST["password"]
 
-  user = User.objects.create_user(username, password)
+  user = authenticate(request, username=username, password=password)
 
-  print(user)
+  if user is not None:
+    login(request, user)
 
-  return JsonResponse("register", safe=False)
+    return JsonResponse({"username": request.user.username}, safe=False)
+  else:
+    newUser = User.objects.create_user(username, "", password)
+
+    if newUser is not None:
+      login(request, newUser)
+
+      return JsonResponse({"username": request.user.username}, safe=False)

@@ -30,16 +30,28 @@ nav, footer {
   width: 100%;
   background: $green;
   height: 30px;
-  text-align: center;
+  
   line-height: 30px;
 }
 
 nav {
   top: 0;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  span {
+    margin-left: 10px;
+  }
+
+  a:last-of-type {
+    margin-right: 10px;
+  }
 }
 
 footer {
   bottom: 0;
+  text-align: center;
 }
 
 // CONTENT:
@@ -158,6 +170,38 @@ footer {
   }
 }
 
+.account {
+  margin-top: 20px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+
+  button {
+    width: 80px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background: $green;
+    padding: 10px;
+    border-radius: 15px;
+
+    input {
+      height: 28px;
+      padding-left: 5px;
+      margin-bottom: 10px;
+      background: $green;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+  }
+}
+
 button {
   width: 30px;
   height: 30px;
@@ -166,6 +210,7 @@ button {
 
   &:hover {
     background: $orange;
+    cursor: pointer;
   }
 
   i {

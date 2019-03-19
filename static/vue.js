@@ -1,7 +1,7 @@
 Vue.component("navbar", {
   delimiters: ["[[", "]]"],
 
-  props: ["page"],
+  props: ["page", "username"],
 
   methods: {
     toggleArchive: function() {
@@ -23,16 +23,19 @@ Vue.component("navbar", {
 
   template: `
     <nav>
+      <span>[[ username ]]</span>
+
+      <a href="/archive" v-on:click.prevent="toggleArchive">
+        <span v-if="page === 'list'">Archive</span>
+        <span v-if="page === 'archive'">Notes</span>
+      </a>
+
       <a href="/account" v-on:click.prevent="toggleAccount">
         <span v-if="page === 'list'">Account</span>
         <span v-if="page === 'archive'">Account</span>
         <span v-if="page === 'account'">Notes</span>
       </a>
 
-      <a href="/archive" v-on:click.prevent="toggleArchive">
-        <span v-if="page === 'list'">Archive</span>
-        <span v-if="page === 'archive'">Notes</span>
-      </a>
     </nav>
   `
 })
@@ -549,11 +552,15 @@ Vue.component("list", {
 Vue.component("account", {
   delimiters: ["[[", "]]"],
 
-  props: ["token", "page"],
+  props: ["token", "page", "username"],
 
   methods: {
     resetToken() {
       this.$parent.getCookie('csrftoken')
+    },
+
+    getData() {
+      this.$parent.getData()
     },
     
     signin: function(e) {
@@ -571,9 +578,12 @@ Vue.component("account", {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        this.$emit("update:username", data.username)
 
         this.resetToken()
+        this.getData()
+
+        this.$emit("update:page", "list")
       })
     },
 
@@ -587,17 +597,22 @@ Vue.component("account", {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        this.$emit("update:username", "Anonymous")
+
+        this.resetToken()
+        this.getData()
+
+        this.$emit("update:page", "list")
       })
     },
 
-    signup: function() {
+    signup: function(e) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
-      body.append("username", "")
-      body.append("password", "")
+      body.append("username", e.target[0].value)
+      body.append("password", e.target[1].value)
 
       fetch("/account/signup/", {
         method: "post",
@@ -606,22 +621,35 @@ Vue.component("account", {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
+        this.$emit("update:username", data.username)
+
+        this.resetToken()
+        this.getData()
+
+        this.$emit("update:page", "list")
       })
     }
   },
 
   template: `
   <div v-if="page === 'account'">
-    Account
-    
-    <form class="account-form" action="" method="post" v-on:submit.prevent="signin($event)">
-      <input type="text" name="username" placeholder="Username">
-      <input type="password" name="password" placeholder="password">
-      <button type="submit">Login</button>
-    </form>
+    <div class="account">
 
-    <button title="Sign Out" v-on:click="signout">Sign Out</button>
+      <button title="Sign Out" v-on:click="signout">Logout</button>
+
+      <form class="account-form" action="" method="post" v-on:submit.prevent="signin($event)">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+      </form>
+
+      <form class="account-form" action="" method="post" v-on:submit.prevent="signup($event)">
+        <input type="text" name="username" placeholder="Username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Register</button>
+      </form>
+
+    </div>
   </div>
   `
 })
@@ -635,7 +663,8 @@ new Vue({
     return {
       "token": undefined,
       "lists": undefined,
-      "page": "list"
+      "page": "list",
+      "username": "Anonymous"
     }
   },
 
@@ -661,8 +690,6 @@ new Vue({
         }
       }
 
-      console.log(cookieValue)
-
       this.token = cookieValue;
     },
 
@@ -670,7 +697,8 @@ new Vue({
       fetch("/api/get_all")
       .then(res => res.json())
       .then(data => {
-        this.lists = data
+        this.lists = data.data
+        this.username = data.username
       })
     }
   }
