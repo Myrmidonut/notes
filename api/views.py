@@ -125,6 +125,24 @@ def update_list(request):
   else:
     return HttpResponse("no update")
 
+def delete_list(request):
+  if request.method == "POST":
+    list_id = request.POST.get("id")
+
+    if request.user.is_authenticated:
+      user = request.user.username
+      lis = List(id=list_id, user=request.user.username)
+    else:
+      lis = List(id=list_id, user="Anonymous")
+
+    lis.delete()
+
+    allData = combineAll(request)
+
+    return JsonResponse(allData, safe=False)
+  else:
+    return HttpResponse("no delete")
+
 # ITEMS:
 
 def new_item(request):

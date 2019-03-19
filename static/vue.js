@@ -65,6 +65,24 @@ Vue.component("archive", {
 
     // LISTS:
 
+    deleteList: function(e, id) {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("id", id)
+
+      fetch("/api/delete_list/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        this.$emit("update:lists", data)
+      })
+    },
+
     updateList: function(e, id) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
@@ -232,6 +250,8 @@ Vue.component("archive", {
 
                   <div class="card-row-buttons">
 
+                    <button title="Delete" v-on:click="deleteList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
+
                     <button title="Collapse" v-on:click="collapseList($event, list.id)">
                       <template v-if="list.collapsed">
                         <i class="fas fa-angle-down"></i>
@@ -240,7 +260,8 @@ Vue.component("archive", {
                         <i class="fas fa-angle-up"></i>
                       </template>
                     </button>
-                    <button title="Restore" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
+
+                    <button title="Restore" v-on:click="archiveList($event, list.id)"><i class="fas fa-eye"></i></button>
 
                   </div>
                 </div>
@@ -505,7 +526,8 @@ Vue.component("list", {
                         <i class="fas fa-angle-up"></i>
                       </template>
                     </button>
-                    <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-trash-alt"></i></button>
+
+                    <button title="Archive" v-on:click="archiveList($event, list.id)"><i class="fas fa-eye-slash"></i></button>
 
                   </div>
                 </div>
