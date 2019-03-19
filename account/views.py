@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 def signin(request):
   username = request.POST["username"]
@@ -16,7 +17,16 @@ def signin(request):
     return JsonResponse("not logged in", safe=False)
 
 def signout(request):
+  logout(request)
+
   return JsonResponse("logout", safe=False)
 
 def signup(request):
+  username = request.POST["username"]
+  password = request.POST["password"]
+
+  user = User.objects.create_user(username, password)
+
+  print(user)
+
   return JsonResponse("register", safe=False)

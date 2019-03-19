@@ -10,15 +10,28 @@ Vue.component("navbar", {
       } else {
         this.$emit("update:page", "list")
       }
+    },
+
+    toggleAccount: function() {
+      if (this.page === "list" || this.page === "archive") {
+        this.$emit("update:page", "account")
+      } else {
+        this.$emit("update:page", "list")
+      }
     }
   },
 
   template: `
     <nav>
-      <!--<a href="">Account</a>-->
+      <a href="/account" v-on:click.prevent="toggleAccount">
+        <span v-if="page === 'list'">Account</span>
+        <span v-if="page === 'archive'">Account</span>
+        <span v-if="page === 'account'">Notes</span>
+      </a>
+
       <a href="/archive" v-on:click.prevent="toggleArchive">
         <span v-if="page === 'list'">Archive</span>
-        <span v-if="page === 'archive'">List</span>
+        <span v-if="page === 'archive'">Notes</span>
       </a>
     </nav>
   `
@@ -536,14 +549,20 @@ Vue.component("list", {
 Vue.component("account", {
   delimiters: ["[[", "]]"],
 
+  props: ["token", "page"],
+
   methods: {
-    signin: function() {
+    resetToken() {
+      this.$parent.getCookie('csrftoken')
+    },
+    
+    signin: function(e) {
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
-      body.append("username", "")
-      body.append("password", "")
+      body.append("username", e.target[0].value)
+      body.append("password", e.target[1].value)
 
       fetch("/account/signin/", {
         method: "post",
@@ -553,9 +572,61 @@ Vue.component("account", {
       .then(res => res.json())
       .then(data => {
         console.log(data)
+
+        this.resetToken()
+      })
+    },
+
+    signout: function() {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("username", "")
+      body.append("password", "")
+
+      fetch("/account/signout/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
+      })
+    },
+
+    signup: function() {
+      let headers = new Headers()
+      headers.append("X-CSRFToken", this.token)
+
+      let body = new FormData()
+      body.append("username", "")
+      body.append("password", "")
+
+      fetch("/account/signup/", {
+        method: "post",
+        headers: headers,
+        body: body
+      })
+      .then(res => res.json())
+      .then(data => {
+        console.log(data)
       })
     }
-  }
+  },
+
+  template: `
+  <div v-if="page === 'account'">
+    Account
+    
+    <form class="account-form" action="" method="post" v-on:submit.prevent="signin($event)">
+      <input type="text" name="username" placeholder="Username">
+      <input type="password" name="password" placeholder="password">
+      <button type="submit">Login</button>
+    </form>
+  </div>
+  `
 })
 
 new Vue({
@@ -592,6 +663,8 @@ new Vue({
           }
         }
       }
+
+      console.log(cookieValue)
 
       this.token = cookieValue;
     },
