@@ -1,7 +1,7 @@
 # Noticed
 
 ## Introduction
-Keep track of anything you want to keep track of with notes!
+Keep track of anything you want with these handy little notepads!
 
 ***
 
