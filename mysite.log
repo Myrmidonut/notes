@@ -103,3 +103,11 @@ ValueError: Missing staticfiles manifest entry for 'css/vue.css'
 [19/Mar/2019 23:50:34] INFO [django.server:154] "POST /api/new_item/ HTTP/1.1" 200 857
 [19/Mar/2019 23:50:37] INFO [django.server:154] "POST /api/archive_list/ HTTP/1.1" 200 856
 [19/Mar/2019 23:50:38] INFO [django.server:154] "POST /api/collapse_list/ HTTP/1.1" 200 855
+[20/Mar/2019 00:22:49] INFO [django.server:154] "GET / HTTP/1.1" 200 1664
+[20/Mar/2019 00:22:49] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[20/Mar/2019 00:22:49] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[20/Mar/2019 00:22:50] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[20/Mar/2019 00:22:50] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[20/Mar/2019 00:22:50] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[20/Mar/2019 00:22:50] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[20/Mar/2019 00:22:50] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
