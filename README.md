@@ -23,7 +23,6 @@ https://noticed.herokuapp.com
 
 ### Hosting:
 * Heroku
-* ElephantSQL
 
 ***
 
@@ -33,6 +32,3 @@ https://noticed.herokuapp.com
 
 ### Mobile View:
 ![Mobile](readme_images/noticed-2.png)
-
-### Archive View:
-![Campground Details](readme_images/noticed-3.png)

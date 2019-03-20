@@ -132,3 +132,11 @@ ValueError: Missing staticfiles manifest entry for 'css/vue.css'
 [20/Mar/2019 01:26:47] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
 [20/Mar/2019 01:26:47] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
 [20/Mar/2019 01:26:47] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
+[20/Mar/2019 17:05:24] INFO [django.server:154] "GET / HTTP/1.1" 200 1656
+[20/Mar/2019 17:05:24] INFO [django.server:154] "GET /static/vue.fa11107b409b.js HTTP/1.1" 200 2223
+[20/Mar/2019 17:05:25] WARNING [django.request:228] Not Found: /{$ static 'favicon/favicon-32x32.png' %}
+[20/Mar/2019 17:05:25] WARNING [django.server:154] "GET /%7B$%20static%20'favicon/favicon-32x32.png'%20%%7D HTTP/1.1" 404 77
+[20/Mar/2019 17:05:25] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
+[20/Mar/2019 17:05:29] INFO [django.server:154] "POST /api/new_list/ HTTP/1.1" 200 1035
+[20/Mar/2019 17:05:44] INFO [django.server:154] "POST /api/archive_list/ HTTP/1.1" 200 1034
+[20/Mar/2019 17:05:47] INFO [django.server:154] "POST /api/delete_list/ HTTP/1.1" 200 855
