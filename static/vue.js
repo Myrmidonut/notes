@@ -43,7 +43,7 @@ Vue.component("navbar", {
 Vue.component("my-footer", {
   template: `
     <footer>
-      <a href="https://github.com/Myrmidonut/notes" target="_blank">by Frederik</a>
+      <a href="https://github.com/Myrmidonut/noticed" target="_blank">by Frederik</a>
     </footer>
   `
 })
