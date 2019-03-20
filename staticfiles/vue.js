@@ -43,7 +43,7 @@ Vue.component("navbar", {
 Vue.component("my-footer", {
   template: `
     <footer>
-      <a href="https://github.com/Myrmidonut/notes" target="_blank">by Frederik</a>
+      <a href="https://github.com/Myrmidonut/noticed" target="_blank">by Frederik</a>
     </footer>
   `
 })
@@ -697,22 +697,23 @@ new Vue({
 
   methods: {
     getCookie: function(name) {
-      let cookieValue = null;
+      let cookieValue = null
 
-      if (document.cookie && document.cookie != '') {
-        let cookies = document.cookie.split(';');
+      if (document.cookie && document.cookie !== "") {
+        let cookies = document.cookie.split(";")
 
         for (let i = 0; i < cookies.length; i++) {
-          let cookie = cookies[i].trim();
+          let cookie = cookies[i].trim()
 
-          if (cookie.substring(0, name.length + 1) == (name + '=')) {
-            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+          if (cookie.substring(0, name.length + 1) == (name + "=")) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1))
+            
             break;
           }
         }
       }
 
-      this.token = cookieValue;
+      this.token = cookieValue
     },
 
     getData: function() {

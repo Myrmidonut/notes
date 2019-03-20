@@ -30,8 +30,13 @@ nav, footer {
   width: 100%;
   background: $green;
   height: 30px;
-  
   line-height: 30px;
+
+  @media screen and (max-width: 350px) {
+    height: 40px;
+    line-height: 40px;
+    font-size: 18px;
+  }
 }
 
 nav {
@@ -63,11 +68,17 @@ footer {
   align-items: flex-start;
 
   .card {
-    width: 300px;
+    width: 350px;
     margin: 20px;
     padding: 10px;
     background: $green;
     border-radius: 15px;
+
+    @media screen and (max-width: 350px) {
+      margin-left: 5px;
+      margin-right: 5px;
+      padding: 8px;
+    }
 
     .card-row {
       display: flex;
@@ -89,6 +100,7 @@ footer {
       input[type="text"] {
         flex: 1;
         width: 100%;
+        font-size: 18px;
       }
   
       form {
@@ -96,10 +108,12 @@ footer {
         width: 100%;
         display: flex;
         justify-content: space-between;
+        align-items: center;
       }
 
       .card-row-buttons {
         display: flex;
+        align-items: center;
       }
     }
 
@@ -167,6 +181,11 @@ footer {
     border-bottom: 1px solid black;
     margin-right: 5px;
     background: $green;
+
+    @media screen and (max-width: 350px) {
+      height: 40px;
+      font-size: 18px;
+    }
   }
 }
 
@@ -208,6 +227,11 @@ button {
   background: $yellow;
   border: 1px solid black;
 
+  @media screen and (max-width: 350px) {
+    height: 40px;
+    width: 40px;
+  }
+
   &:hover {
     background: $orange;
     cursor: pointer;
@@ -215,6 +239,10 @@ button {
 
   i {
     font-size: 15px;
+
+    @media screen and (max-width: 350px) {
+      font-size: 20px;
+    }
   }
 }
 

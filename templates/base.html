@@ -25,6 +25,8 @@
 </head>
 <body>
 
+  {% csrf_token %}
+
   <div id="app">
     <navbar :page.sync="page" :username.sync="username"></navbar>
 
