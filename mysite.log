@@ -111,3 +111,24 @@ ValueError: Missing staticfiles manifest entry for 'css/vue.css'
 [20/Mar/2019 00:22:50] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
 [20/Mar/2019 00:22:50] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
 [20/Mar/2019 00:22:50] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
+[20/Mar/2019 01:22:00] INFO [django.server:154] "GET / HTTP/1.1" 200 1672
+[20/Mar/2019 01:22:01] WARNING [django.request:228] Not Found: /{$ static 'favicon/favicon-32x32.png' %}
+[20/Mar/2019 01:22:01] WARNING [django.server:154] "GET /%7B$%20static%20'favicon/favicon-32x32.png'%20%%7D HTTP/1.1" 404 77
+[20/Mar/2019 01:22:01] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
+[20/Mar/2019 01:22:04] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[20/Mar/2019 01:24:16] INFO [django.server:154] "GET / HTTP/1.1" 200 1672
+[20/Mar/2019 01:24:16] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[20/Mar/2019 01:24:16] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[20/Mar/2019 01:24:17] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[20/Mar/2019 01:24:17] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[20/Mar/2019 01:24:18] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[20/Mar/2019 01:24:18] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[20/Mar/2019 01:24:18] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
+[20/Mar/2019 01:26:46] INFO [django.server:154] "GET / HTTP/1.1" 200 1656
+[20/Mar/2019 01:26:46] INFO [django.server:154] "GET /static/vue.72257ea62cb2.js HTTP/1.1" 200 2224
+[20/Mar/2019 01:26:46] INFO [django.server:154] "GET /static/css/vue.2fca0eab3ac5.css HTTP/1.1" 200 801
+[20/Mar/2019 01:26:46] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 290
+[20/Mar/2019 01:26:46] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[20/Mar/2019 01:26:47] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[20/Mar/2019 01:26:47] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[20/Mar/2019 01:26:47] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 890
