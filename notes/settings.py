@@ -90,7 +90,9 @@ DATABASES = {
     "USER": config("DB_USER"),
     "PASSWORD": config("DB_PASSWORD"),
     "HOST": config("DB_HOST"),
-    "PORT": config("DB_PORT")
+    "PORT": config("DB_PORT"),
+
+    "CONN_MAX_AGE": 600
   }
 }
 
@@ -140,6 +142,7 @@ STATICFILES_DIRS = [
 # https://warehouse.python.org/project/whitenoise/
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+'''
 LOGGING = {
   'version': 1,
   'disable_existing_loggers': False,
@@ -172,3 +175,4 @@ LOGGING = {
     },
   }
 }
+'''
