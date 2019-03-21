@@ -33,6 +33,7 @@ nav {
   align-items: center;
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid black;
 }
 nav span {
   margin-left: 10px;
@@ -44,6 +45,7 @@ nav a:last-of-type {
 footer {
   bottom: 0;
   text-align: center;
+  border-top: 1px solid black;
 }
 
 .card-container {

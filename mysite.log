@@ -689,3 +689,15 @@ ValueError: Missing staticfiles manifest entry for 'css/vue.css'
 [20/Mar/2019 23:45:32] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 969
 [20/Mar/2019 23:45:34] INFO [django.server:154] "POST /api/collapse_list/ HTTP/1.1" 200 933
 [20/Mar/2019 23:45:36] INFO [django.server:154] "POST /api/collapse_list/ HTTP/1.1" 200 934
+[20/Mar/2019 23:59:49] INFO [django.server:154] "GET / HTTP/1.1" 200 1781
+[20/Mar/2019 23:59:49] INFO [django.server:154] "GET /static/css/vue.6fdf9ebbd104.css HTTP/1.1" 200 907
+[20/Mar/2019 23:59:50] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 969
+[20/Mar/2019 23:59:54] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 336
+[20/Mar/2019 23:59:57] INFO [django.server:154] "GET / HTTP/1.1" 200 1781
+[20/Mar/2019 23:59:57] INFO [django.server:154] "GET /static/css/vue.6fdf9ebbd104.css HTTP/1.1" 200 907
+[20/Mar/2019 23:59:58] INFO [django.server:154] "GET /static/vue.ce3a7c7c468e.js HTTP/1.1" 200 2220
+[20/Mar/2019 23:59:58] INFO [django.server:154] "GET /static/css/vue.css.map HTTP/1.1" 200 336
+[20/Mar/2019 23:59:58] INFO [django.server:154] "GET /api/get_all HTTP/1.1" 301 0
+[20/Mar/2019 23:59:58] INFO [django.server:154] "GET /static/favicon/site.44fe19b82676.webmanifest HTTP/1.1" 200 190
+[20/Mar/2019 23:59:58] INFO [django.server:154] "GET /static/favicon/favicon-16x16.fb093858ce26.png HTTP/1.1" 200 644
+[20/Mar/2019 23:59:59] INFO [django.server:154] "GET /api/get_all/ HTTP/1.1" 200 969
