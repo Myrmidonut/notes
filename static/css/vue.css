@@ -19,6 +19,7 @@ nav, footer {
   background: #e6ee9c;
   height: 30px;
   line-height: 30px;
+  display: flex;
 }
 @media screen and (max-width: 350px) {
   nav, footer {
@@ -31,21 +32,17 @@ nav, footer {
 nav {
   top: 0;
   align-items: center;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid black;
+  justify-content: space-between;
 }
-nav span {
-  margin-left: 10px;
-}
-nav a:last-of-type {
-  margin-right: 10px;
+nav > span {
+  margin-left: 5px;
 }
 
 footer {
   bottom: 0;
-  text-align: center;
   border-top: 1px solid black;
+  justify-content: center;
 }
 
 .card-container {
@@ -76,16 +73,17 @@ footer {
   font-weight: bold;
   font-size: 18px;
 }
-.card-container .card .card-row input[type=submit], .card-container .card .card-row button {
+.card-container .card .card-row button {
   margin-left: 5px;
-}
-.card-container .card .card-row input[type=number] {
-  margin-right: 5px;
 }
 .card-container .card .card-row input[type=text] {
   flex: 1;
   width: 100%;
   font-size: 18px;
+}
+.card-container .card .card-row input[type=text]:focus {
+  background: #FFEB3B;
+  border: 1px solid black;
 }
 .card-container .card .card-row form {
   flex: 1;
@@ -110,7 +108,7 @@ footer {
 }
 .card-container .card input[type=text] {
   background: #e6ee9c;
-  border: none;
+  border: 1px solid #e6ee9c;
   border-bottom: 1px solid black;
   padding: 5px;
 }
@@ -147,9 +145,14 @@ footer {
   height: 28px;
   padding: 0 5px;
   border: none;
+  border: 1px solid #e6ee9c;
   border-bottom: 1px solid black;
   margin-right: 5px;
   background: #e6ee9c;
+}
+.new-list input[type=text]:focus {
+  background: #FFEB3B;
+  border: 1px solid black;
 }
 @media screen and (max-width: 350px) {
   .new-list input[type=text] {
@@ -213,8 +216,12 @@ button i {
 }
 
 a {
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: black;
+}
+a:hover {
+  background: #FFEB3B;
 }
 
 /*# sourceMappingURL=vue.css.map */

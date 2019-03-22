@@ -84,12 +84,24 @@ Vue.component("archive", {
     },
 
     updateList: function(e, id) {
+      let title
+
+      if (e.target[0]) {
+        title = e.target[0].value
+
+        e.target[0].blur()
+      } else {
+        title = e.target.value
+
+        e.target.blur()
+      }
+
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
       body.append("id", id)
-      body.append("title", e.target[0].value)
+      body.append("title", title)
 
       fetch("/api/update_list/", {
         method: "post",
@@ -213,7 +225,17 @@ Vue.component("archive", {
     },
 
     updateItem: function(e, id) {
-      const text = e.target[0].value
+      let text
+
+      if (e.target[0]) {
+        text = e.target[0].value
+
+        e.target[0].blur()
+      } else {
+        text = e.target.value
+
+        e.target.blur()
+      }
 
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
@@ -244,8 +266,7 @@ Vue.component("archive", {
                 <div class="card-row">
 
                   <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
-                    <input class="title" type="text" name="title" :value="[[ list.title ]]">
-                    <button type="submit" title="Save"><i class="fas fa-save"></i></button>
+                    <input class="title" type="text" name="title" :value="[[ list.title ]]" v-on:blur="updateList($event, list.id)">
                   </form>
 
                   <div class="card-row-buttons">
@@ -273,8 +294,7 @@ Vue.component("archive", {
                         <li class="card-row" :id="item.id">
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
-                            <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough">
-                            <button type="submit" title="Save"><i class="fas fa-save"></i></button>
+                            <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough" v-on:blur="updateItem($event, item.id)">
                           </form>
 
                           <div class="card-row-buttons">
@@ -329,6 +349,8 @@ Vue.component("list", {
       let body = new FormData()
       body.append("title", e.target[0].value)
 
+      e.target[0].blur()
+
       fetch("/api/new_list/", {
         method: "post",
         headers: headers,
@@ -343,12 +365,24 @@ Vue.component("list", {
     },
 
     updateList: function(e, id) {
+      let title
+
+      if (e.target[0]) {
+        title = e.target[0].value
+
+        e.target[0].blur()
+      } else {
+        title = e.target.value
+
+        e.target.blur()
+      }
+
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
       body.append("id", id)
-      body.append("title", e.target[0].value)
+      body.append("title", title)
 
       fetch("/api/update_list/", {
         method: "post",
@@ -472,7 +506,17 @@ Vue.component("list", {
     },
 
     updateItem: function(e, id) {
-      const text = e.target[0].value
+      let text
+
+      if (e.target[0]) {
+        text = e.target[0].value
+
+        e.target[0].blur()
+      } else {
+        text = e.target.value
+
+        e.target.blur()
+      }
 
       let headers = new Headers()
       headers.append("X-CSRFToken", this.token)
@@ -512,8 +556,7 @@ Vue.component("list", {
                 <div class="card-row">
 
                   <form action="" method="post" v-on:submit.prevent="updateList($event, list.id)">
-                    <input class="title" type="text" name="title" :value="[[ list.title ]]">
-                    <button title="Save" type="submit"><i class="fas fa-save"></i></button>
+                    <input class="title" type="text" name="title" :value="[[ list.title ]]" v-on:blur="updateList($event, list.id)">
                   </form>
 
                   <div class="card-row-buttons">
@@ -539,8 +582,7 @@ Vue.component("list", {
                         <li class="card-row" :id="item.id">
 
                           <form action="" method="post" v-on:submit.prevent="updateItem($event, item.id)">
-                            <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough">
-                            <button title="Save" type="submit"><i class="fas fa-save"></i></button>
+                            <input class="item" type="text" name="text" :value="item.text" :style="item.checked | lineThrough" v-on:blur="updateItem($event, item.id)">
                           </form>
 
                           <div class="card-row-buttons">

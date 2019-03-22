@@ -31,7 +31,8 @@ nav, footer {
   background: $green;
   height: 30px;
   line-height: 30px;
-
+  display: flex;
+  
   @media screen and (max-width: 350px) {
     height: 40px;
     line-height: 40px;
@@ -42,23 +43,18 @@ nav, footer {
 nav {
   top: 0;
   align-items: center;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid black;
+  justify-content: space-between;
 
-  span {
-    margin-left: 10px;
-  }
-
-  a:last-of-type {
-    margin-right: 10px;
+  > span {
+    margin-left: 5px;
   }
 }
 
 footer {
   bottom: 0;
-  text-align: center;
   border-top: 1px solid black;
+  justify-content: center;
 }
 
 // CONTENT:
@@ -91,18 +87,19 @@ footer {
         font-size: 18px;
       }
 
-      input[type="submit"], button {
+      button {
         margin-left: 5px;
-      }
-
-      input[type="number"] {
-        margin-right: 5px;
       }
 
       input[type="text"] {
         flex: 1;
         width: 100%;
         font-size: 18px;
+
+        &:focus {
+          background: $yellow;
+          border: 1px solid black;
+        }
       }
   
       form {
@@ -136,7 +133,7 @@ footer {
 
     input[type="text"] {
       background: $green;
-      border: none;
+      border: 1px solid $green;
       border-bottom: 1px solid black;
       padding: 5px;
     }
@@ -180,9 +177,15 @@ footer {
     height: 28px;
     padding: 0 5px;
     border: none;
+    border: 1px solid $green;
     border-bottom: 1px solid black;
     margin-right: 5px;
     background: $green;
+
+    &:focus {
+      background: $yellow;
+      border: 1px solid black;
+    }
 
     @media screen and (max-width: 350px) {
       height: 40px;
@@ -249,6 +252,12 @@ button {
 }
 
 a {
-  padding: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
   color: black;
+
+    &:hover {
+      background: $yellow;
+    }
+
 }
