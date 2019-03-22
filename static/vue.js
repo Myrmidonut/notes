@@ -310,7 +310,7 @@ Vue.component("archive", {
                   <div class="card-row">
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
-                      <input class="item" type="text" name="text" placeholder="new item">
+                      <input class="item" type="text" name="text" placeholder="New item">
                       <button title="Add" type="submit"><i class="fas fa-plus"></i></button>
                     </form>
 
@@ -542,7 +542,7 @@ Vue.component("list", {
       <div class="new-list">
 
         <form action="new_list/" method="post" v-on:submit.prevent="newList($event)">
-          <input type="text" name="title" placeholder="new list">
+          <input type="text" name="title" placeholder="New list">
           <button title="Add" type="submit"><i class="fas fa-plus"></i></button>
         </form>
 
@@ -598,7 +598,7 @@ Vue.component("list", {
                   <div class="card-row">
 
                     <form action="" method="post" v-on:submit.prevent="newItem($event, list.id)">
-                      <input class="item" type="text" name="text" placeholder="new item">
+                      <input class="item" type="text" name="text" placeholder="New item">
                       <button title="Add" type="submit"><i class="fas fa-plus"></i></button>
                     </form>
 

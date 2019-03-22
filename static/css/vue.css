@@ -17,9 +17,10 @@ nav, footer {
   left: 0;
   width: 100%;
   background: #e6ee9c;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
   display: flex;
+  align-items: center;
+  line-height: 40px;
 }
 @media screen and (max-width: 350px) {
   nav, footer {
@@ -31,12 +32,12 @@ nav, footer {
 
 nav {
   top: 0;
-  align-items: center;
   border-bottom: 1px solid black;
   justify-content: space-between;
 }
 nav > span {
   margin-left: 5px;
+  font-size: 18px;
 }
 
 footer {
@@ -140,15 +141,18 @@ footer {
   background: #e6ee9c;
   padding: 10px;
   border-radius: 15px;
+  align-items: center;
+  height: 100%;
 }
 .new-list input[type=text] {
-  height: 28px;
-  padding: 0 5px;
+  height: 23px;
+  padding: 5px;
   border: none;
   border: 1px solid #e6ee9c;
   border-bottom: 1px solid black;
   margin-right: 5px;
   background: #e6ee9c;
+  font-size: 18px;
 }
 .new-list input[type=text]:focus {
   background: #FFEB3B;
@@ -169,6 +173,8 @@ footer {
 }
 .account button {
   width: 80px;
+  font-size: 18px;
+  height: 34px;
 }
 .account form {
   display: flex;
@@ -188,11 +194,12 @@ footer {
   background: #e6ee9c;
   border: none;
   border-bottom: 1px solid black;
+  font-size: 18px;
 }
 
 button {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   background: #FFEB3B;
   border: 1px solid black;
 }
@@ -207,7 +214,7 @@ button:hover {
   cursor: pointer;
 }
 button i {
-  font-size: 15px;
+  font-size: 17px;
 }
 @media screen and (max-width: 350px) {
   button i {
@@ -216,9 +223,11 @@ button i {
 }
 
 a {
+  font-size: 18px;
   padding-left: 5px;
   padding-right: 5px;
   color: black;
+  height: 100%;
 }
 a:hover {
   background: #FFEB3B;

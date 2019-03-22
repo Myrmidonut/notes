@@ -17,6 +17,7 @@ $yellow: #FFEB3B;
 $orange: #F9A825;
 
 $fontFamily: 'Raleway', sans-serif;
+$fontSize: 18px;
 
 * {
   font-family: $fontFamily;
@@ -29,25 +30,26 @@ nav, footer {
   left: 0;
   width: 100%;
   background: $green;
-  height: 30px;
-  line-height: 30px;
+  height: 40px;
   display: flex;
+  align-items: center;
+  line-height: 40px;
   
   @media screen and (max-width: 350px) {
     height: 40px;
     line-height: 40px;
-    font-size: 18px;
+    font-size: $fontSize;
   }
 }
 
 nav {
   top: 0;
-  align-items: center;
   border-bottom: 1px solid black;
   justify-content: space-between;
 
   > span {
     margin-left: 5px;
+    font-size: $fontSize;
   }
 }
 
@@ -84,7 +86,7 @@ footer {
 
       .title {
         font-weight: bold;
-        font-size: 18px;
+        font-size: $fontSize;
       }
 
       button {
@@ -94,7 +96,7 @@ footer {
       input[type="text"] {
         flex: 1;
         width: 100%;
-        font-size: 18px;
+        font-size: $fontSize;
 
         &:focus {
           background: $yellow;
@@ -171,16 +173,19 @@ footer {
     background: $green;
     padding: 10px;
     border-radius: 15px;
+    align-items: center;
+    height: 100%;
   }
 
   input[type="text"] {
-    height: 28px;
-    padding: 0 5px;
+    height: 23px;
+    padding: 5px;
     border: none;
     border: 1px solid $green;
     border-bottom: 1px solid black;
     margin-right: 5px;
     background: $green;
+    font-size: $fontSize;
 
     &:focus {
       background: $yellow;
@@ -189,7 +194,7 @@ footer {
 
     @media screen and (max-width: 350px) {
       height: 40px;
-      font-size: 18px;
+      font-size: $fontSize;
     }
   }
 }
@@ -202,6 +207,8 @@ footer {
 
   button {
     width: 80px;
+    font-size: $fontSize;
+    height: 34px;
   }
 
   form {
@@ -222,13 +229,14 @@ footer {
       background: $green;
       border: none;
       border-bottom: 1px solid black;
+      font-size: $fontSize;
     }
   }
 }
 
 button {
-  width: 30px;
-  height: 30px;
+  width: 34px;
+  height: 34px;
   background: $yellow;
   border: 1px solid black;
 
@@ -243,7 +251,7 @@ button {
   }
 
   i {
-    font-size: 15px;
+    font-size: 17px;
 
     @media screen and (max-width: 350px) {
       font-size: 20px;
@@ -252,12 +260,13 @@ button {
 }
 
 a {
+  font-size: $fontSize;
   padding-left: 5px;
   padding-right: 5px;
   color: black;
+  height: 100%;
 
     &:hover {
       background: $yellow;
     }
-
 }
