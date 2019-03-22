@@ -257,7 +257,7 @@ Vue.component("archive", {
   },
 
   template: `
-    <div v-if="page === 'archive'">
+    <div v-if="page === 'archive'" id="archive">
       <div class="card-container">
         <template v-if="lists !== undefined">
           <template v-for="list in lists">
@@ -675,8 +675,8 @@ Vue.component("account", {
       headers.append("X-CSRFToken", this.token)
 
       let body = new FormData()
-      body.append("username", e.target[0].value)
-      body.append("password", e.target[1].value)
+      body.append("username", e.target.form[0].value)
+      body.append("password", e.target.form[1].value)
 
       fetch("/account/signup/", {
         method: "post",
@@ -701,18 +701,19 @@ Vue.component("account", {
 
       <button title="Sign Out" v-on:click="signout">Logout</button>
 
-      <form class="account-form" action="" method="post" v-on:submit.prevent="signin($event)">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Login</button>
-      </form>
+      <div class="account-form">
+        <form action="" method="post" v-on:submit.prevent="signin($event)">
+          <input type="text" name="username" placeholder="Username">
+          <input type="password" name="password" placeholder="Password">
 
-      <form class="account-form" action="" method="post" v-on:submit.prevent="signup($event)">
-        <input type="text" name="username" placeholder="Username">
-        <input type="password" name="password" placeholder="Password">
-        <button type="submit">Register</button>
-      </form>
+          <div id="account-buttons">
+            <button type="submit">Login</button>
+            <button v-on:click.prevent="signup($event)">Register</button>
+          </div>
 
+        </form>
+        
+      </div>
     </div>
   </div>
   `

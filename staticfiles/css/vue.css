@@ -4,8 +4,8 @@ html, body {
 }
 
 body {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 * {
@@ -44,6 +44,10 @@ footer {
   bottom: 0;
   border-top: 1px solid black;
   justify-content: center;
+}
+
+#archive {
+  margin-top: 20px;
 }
 
 .card-container {
@@ -174,20 +178,27 @@ footer {
 .account button {
   width: 80px;
   font-size: 18px;
-  height: 34px;
+  height: 40px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
-.account form {
+.account .account-form {
+  width: 100%;
+  max-width: 350px;
+}
+.account .account-form form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin: 20px 5px 20px 5px;
   background: #e6ee9c;
   padding: 10px;
   border-radius: 15px;
 }
-.account form input {
+.account .account-form form input {
+  width: 100%;
+  text-align: center;
   height: 28px;
   padding-left: 5px;
   margin-bottom: 10px;

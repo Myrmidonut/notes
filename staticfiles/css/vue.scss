@@ -6,8 +6,8 @@ html, body {
 }
 
 body {
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 // VARIABLES:
@@ -60,6 +60,10 @@ footer {
 }
 
 // CONTENT:
+
+#archive {
+  margin-top: 20px;
+}
 
 .card-container {
   display: flex;
@@ -208,28 +212,36 @@ footer {
   button {
     width: 80px;
     font-size: $fontSize;
-    height: 34px;
+    height: 40px;
+    margin-left: 20px;
+    margin-right: 20px;
   }
 
-  form {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-    margin-bottom: 20px;
-    background: $green;
-    padding: 10px;
-    border-radius: 15px;
+  .account-form {
+    width: 100%;
+    max-width: 350px;
 
-    input {
-      height: 28px;
-      padding-left: 5px;
-      margin-bottom: 10px;
+    form {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 20px 5px 20px 5px;
       background: $green;
-      border: none;
-      border-bottom: 1px solid black;
-      font-size: $fontSize;
+      padding: 10px;
+      border-radius: 15px;
+
+      input {
+        width: 100%;
+        text-align: center;
+        height: 28px;
+        padding-left: 5px;
+        margin-bottom: 10px;
+        background: $green;
+        border: none;
+        border-bottom: 1px solid black;
+        font-size: $fontSize;
+      }
     }
   }
 }
